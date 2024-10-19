@@ -1,0 +1,81 @@
+.app_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #dcdcdc;
+    position: relative; /* Set this to relative so child elements can position themselves accordingly */
+}
+
+.app_header > form {
+    width: 40%;
+    position: relative; /* Ensure the form maintains its position relative to the header */
+}
+
+.task_input {
+    font-size: 20px;
+    font-weight: 500;
+    background: #f9f9f9;
+    color: #000;
+    border: 1px solid #dfe3e6;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.task_input::placeholder {
+    color: #686868;
+}
+
+.task_form_bottom_line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task_status {
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #999;
+    border-radius: 5px;
+    width: 120px;
+    height: 40px;
+    padding: 0 5px;
+}
+
+.task_submit {
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #6457f9;
+    color: #fff;
+    border-radius: 5px;
+    height: 40px;
+    padding: 3px 13px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Ensure dropdown is anchored to the input field and remains visible */
+.course-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute; /* Make dropdown position absolute */
+    width: 100%;  /* Match the width of the input */
+    background-color: white; /* Ensure background is solid */
+    z-index: 10; /* Ensure dropdown stays on top of other elements */
+    top: 100%; /* Position the dropdown just below the input field */
+}
+
+.course-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.course-list li:hover {
+    background-color: #f0f0f0;
+}
