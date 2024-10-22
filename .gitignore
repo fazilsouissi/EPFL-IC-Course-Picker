@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# EPFL Course List Website (https://edu.epfl.ch/studyplan/en/bachelor/computer-science/)
+Bachelor Cycle - Computer Science - EPFL_files
+Bachelor Cycle - Computer Science - EPFL.html
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

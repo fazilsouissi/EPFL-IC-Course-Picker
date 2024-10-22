@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import TaskForm from "./components/TaskForm";
 import TaskColumn from "./components/TaskColumn";
+import Header from "./components/Header";
 // import todoIcon from "./assets/direct-hit.png";
 // import doingIcon from "./assets/glowing-star.png";
 // import doneIcon from "./assets/check-mark-button.png";
@@ -38,6 +39,8 @@ const App = () => {
   };
 
   return (
+    <>
+      <Header />
     <div className="app">
       <TaskForm setTasks={setTasks} />
       <main className="app_main">
@@ -49,7 +52,7 @@ const App = () => {
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
           onDrop={onDrop}
-        />
+          />
         <TaskColumn
           title="BA4"
           // icon={doingIcon}
@@ -58,7 +61,7 @@ const App = () => {
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
           onDrop={onDrop}
-        />
+          />
         <TaskColumn
           title="BA5"
           // icon={doneIcon}
@@ -67,7 +70,7 @@ const App = () => {
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
           onDrop={onDrop}
-        />
+          />
         <TaskColumn
           title="BA6"
           // icon={doneIcon}
@@ -76,9 +79,10 @@ const App = () => {
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
           onDrop={onDrop}
-        />
+          />
       </main>
     </div>
+          </>
   );
 };
 

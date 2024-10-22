@@ -27,7 +27,7 @@ const TaskForm = ({ setTasks }) => {
   // Filter courses as the user types in the task input field
   useEffect(() => {
     if (taskData.task) {
-      const filtered = courses.filter(course =>
+      const filtered = courses.filter((course) =>
         course.toLowerCase().includes(taskData.task.toLowerCase())
       );
       setFilteredCourses(filtered);
@@ -69,7 +69,7 @@ const TaskForm = ({ setTasks }) => {
     });
     setTaskData({
       task: "",
-      status: "BA3",
+      status: "BA3", // Default status to submit a course
       tags: [],
     });
   };
@@ -82,15 +82,31 @@ const TaskForm = ({ setTasks }) => {
   return (
     <header className="app_header">
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="task"
-          value={taskData.task}
-          className="task_input"
-          placeholder="Search for IC Course"
-          onChange={handleChange}
-        />
-        
+        <div className="search-bar-container">
+          <input
+            type="text"
+            name="task"
+            value={taskData.task}
+            className="task_input"
+            placeholder="Search for IC Course"
+            onChange={handleChange}
+          />
+          <select
+            name="status"
+            value={taskData.status}
+            className="task_status"
+            onChange={handleChange}
+          >
+            <option value="BA3">BA3</option>
+            <option value="BA4">BA4</option>
+            <option value="BA5">BA5</option>
+            <option value="BA6">BA6</option>
+          </select>
+          <button type="submit" className="task_submit">
+            + Add Course
+          </button>
+        </div>
+
         {/* Display filtered courses in a dropdown-like manner */}
         {filteredCourses.length > 0 && (
           <ul className="course-list">
@@ -103,9 +119,8 @@ const TaskForm = ({ setTasks }) => {
         )}
 
         <div className="task_form_bottom_line">
-          <div>
             <Tag
-              tagName="8 Credits" 
+              tagName="8 Credits"
               selectTag={selectTag}
               selected={checkTag("8 Credits")}
             />
@@ -129,24 +144,6 @@ const TaskForm = ({ setTasks }) => {
               selectTag={selectTag}
               selected={checkTag("SHS - 2 Credits")}
             />
-          </div>
-
-          <div>
-            <select
-              name="status"
-              value={taskData.status}
-              className="task_status"
-              onChange={handleChange}
-            >
-              <option value="BA3">BA3</option>
-              <option value="BA4">BA4</option>
-              <option value="BA5">BA5</option>
-              <option value="BA6">BA6</option>
-            </select>
-            <button type="submit" className="task_submit">
-              + Add Course
-            </button>
-          </div>
         </div>
       </form>
     </header>

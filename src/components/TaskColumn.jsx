@@ -21,7 +21,7 @@ import DropArea from "./DropArea";
 
 const TaskColumn = ({
   title,
-  icon,
+  // icon,
   tasks,
   status,
   handleDelete,
@@ -31,7 +31,8 @@ const TaskColumn = ({
   return (
     <section className="task_column">
       <h2 className="task_column_heading">
-        <img className="task_column_icon" src={icon} alt="" /> {title}
+        {/* <img className="task_column_icon" src={icon} alt="" />  */}
+        {title}
       </h2>
       <DropArea onDrop={() => onDrop(status, 0)} />
 
