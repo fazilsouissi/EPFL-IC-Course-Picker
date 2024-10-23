@@ -1,0 +1,272 @@
+{
+    "Algorithms I": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "8",
+        "ba": 4
+    },
+    "Analysis III (for IC)": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "6",
+        "ba": 3
+    },
+    "Software construction": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "8",
+        "ba": 3
+    },
+    "Computer architecture": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "8",
+        "ba": 3
+    },
+    "Computer systems": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "8",
+        "ba": 4
+    },
+    "Probability and statistics (for IC)": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "6",
+        "ba": 3
+    },
+    "Computer security and privacy": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "6",
+        "ba": 5
+    },
+    "Data-intensive systems": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Theory of computation": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Algebra": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 3
+    },
+    "Analysis IV": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "4",
+        "ba": 4
+    },
+    "Artificial intelligence": {
+        "language": "FR",
+        "season": "Spring",
+        "credits": "4",
+        "ba": 6
+    },
+    "Communications project": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "8",
+        "ba": 6
+    },
+    "Computer graphics": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 4
+    },
+    "Computer language processing": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Electromagnetics I : Transmission lines and waves": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "3",
+        "ba": 5
+    },
+    "Electromagnetics II : field computation": {
+        "language": "FR",
+        "season": "Spring",
+        "credits": "3",
+        "ba": 6
+    },
+    "Electronics I": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 3
+    },
+    "Electronics II (for IC)": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 5
+    },
+    "Human computer interaction": {
+        "language": "FR",
+        "season": "Spring",
+        "credits": "5",
+        "ba": 4
+    },
+    "Internet analytics": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Introduction to machine learning": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 4
+    },
+    "Introduction to quantum computation": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "5",
+        "ba": 6
+    },
+    "Introduction to quantum information processing": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "5",
+        "ba": 5
+    },
+    "Microprogrammed Embedded Systems": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 5
+    },
+    "Numerical methods for visual computing and ML": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 3
+    },
+    "Parallelism and concurrency in software": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Principles of digital communications": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Projet de recherche optionnel en Informatique I": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "8",
+        "ba": 5
+    },
+    "Responsible software": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 3
+    },
+    "Signal processing": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "8",
+        "ba": 4
+    },
+    "Stochastic models in communication": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "6",
+        "ba": 5
+    },
+    "Technologies for democratic society": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "5",
+        "ba": 3
+    },
+    "Analytical mechanics (for SPH)": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "5",
+        "ba": 3
+    },
+    "General physics : electromagnetism": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "4",
+        "ba": 3
+    },
+    "Introduction to life sciences (for IC)": {
+        "language": "FR",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 4
+    },
+    "Neuroscience foundations for engineers": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "6",
+        "ba": 6
+    },
+    "Quantum mechanics for non-physicists": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "5",
+        "ba": 5
+    },
+    "Making intelligent things A": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "8",
+        "ba": 5
+    },
+    "Making intelligent things B": {
+        "language": "EN",
+        "season": "Spring",
+        "credits": "8",
+        "ba": 6
+    },
+    "The software enterprise - from ideas to products": {
+        "language": "EN",
+        "season": "Fall",
+        "credits": "8",
+        "ba": 5
+    },
+    "HSS : Bachelor cycle BA3": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "2",
+        "ba": 2
+    },
+    "HSS : Bachelor cycle BA4": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "2",
+        "ba": 2
+    },
+    "HSS : Bachelor cycle BA5": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "2",
+        "ba": 2
+    },
+    "SHS : Bachelor cycle BA6": {
+        "language": "FR",
+        "season": "Fall",
+        "credits": "2",
+        "ba": 2
+    }
+}

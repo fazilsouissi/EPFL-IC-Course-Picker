@@ -4,6 +4,7 @@ import "./App.css";
 import TaskForm from "./components/TaskForm";
 import TaskColumn from "./components/TaskColumn";
 import Header from "./components/Header";
+import Course from "./components/Course";
 // import todoIcon from "./assets/direct-hit.png";
 // import doingIcon from "./assets/glowing-star.png";
 // import doneIcon from "./assets/check-mark-button.png";
@@ -38,11 +39,54 @@ const App = () => {
     setTasks(updatedTask);
   };
 
+  useEffect(() => {
+    function adjustFontSizeToFit() {
+      const textElements = document.querySelectorAll('.span-course'); // Correct class selector
+      console.log(textElements); // Check if elements are selected
+    
+      textElements.forEach((node) => {
+        const container = node.parentElement;
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+    
+        let fontSize = 20;
+        
+        if (node.classList.contains('span-cr')) {
+          console.log('span-cr');
+          node.style.fontSize = 13 + "px";
+        }
+        else {
+          while (node.scrollWidth > containerWidth || node.scrollHeight + fontSize + 2 > containerHeight) {
+            fontSize--;
+            node.style.fontSize = fontSize + 'px';
+          }
+        }
+        // Decrease font size until the text fits within the container's width and height
+      });
+    }
+  
+    // Call the function once on mount
+    adjustFontSizeToFit();
+  
+    // Add window resize event listener
+    window.addEventListener('resize', adjustFontSizeToFit);
+  
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', adjustFontSizeToFit);
+    };
+  }, []); // Empty dependency array to run effect on mount
+  
+
   return (
     <>
       <Header />
     <div className="app">
-      <TaskForm setTasks={setTasks} />
+      <div>
+        <TaskForm setTasks={setTasks} />
+        <Course season="Fall"/>
+        <Course season="Spring"/>
+      </div>
       <main className="app_main">
         <TaskColumn
           title="BA3"
