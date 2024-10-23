@@ -45,11 +45,7 @@
 }
 
 
-.common-color {
-    border-radius: inherit;
-    border: 2px solid #fbd518;
-    color: #27230e;
-}
+
 
 .individual-course-label {
     display: grid;
@@ -58,6 +54,12 @@
     border-radius: 20px;
     border: 1px solid #fbd518;
     align-items: center;
+}
+
+.common-color {
+    border-radius: inherit;
+    border: 2px solid #fbd518;
+    color: #27230e;
 }
 
 .course-name-container, .cr-container {

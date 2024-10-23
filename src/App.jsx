@@ -14,6 +14,7 @@ const oldTasks = localStorage.getItem("tasks");
 const App = () => {
   const [tasks, setTasks] = useState(JSON.parse(oldTasks) || []);
   const [activeCard, setActiveCard] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -39,43 +40,7 @@ const App = () => {
     setTasks(updatedTask);
   };
 
-  useEffect(() => {
-    function adjustFontSizeToFit() {
-      const textElements = document.querySelectorAll('.span-course'); // Correct class selector
-      console.log(textElements); // Check if elements are selected
-    
-      textElements.forEach((node) => {
-        const container = node.parentElement;
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-    
-        let fontSize = 20;
-        
-        if (node.classList.contains('span-cr')) {
-          console.log('span-cr');
-          node.style.fontSize = 13 + "px";
-        }
-        else {
-          while (node.scrollWidth > containerWidth || node.scrollHeight + fontSize + 2 > containerHeight) {
-            fontSize--;
-            node.style.fontSize = fontSize + 'px';
-          }
-        }
-        // Decrease font size until the text fits within the container's width and height
-      });
-    }
   
-    // Call the function once on mount
-    adjustFontSizeToFit();
-  
-    // Add window resize event listener
-    window.addEventListener('resize', adjustFontSizeToFit);
-  
-    // Clean up the event listener on unmount
-    return () => {
-      window.removeEventListener('resize', adjustFontSizeToFit);
-    };
-  }, []); // Empty dependency array to run effect on mount
   
 
   return (
@@ -83,9 +48,9 @@ const App = () => {
       <Header />
     <div className="app">
       <div>
-        <TaskForm setTasks={setTasks} />
-        <Course season="Fall"/>
-        <Course season="Spring"/>
+        <TaskForm setTasks={setTasks} setSearchValue={setSearchValue} />
+        <Course season="Fall" searchValue={searchValue} />
+        <Course season="Spring" searchValue={searchValue} />
       </div>
       <main className="app_main">
         <TaskColumn

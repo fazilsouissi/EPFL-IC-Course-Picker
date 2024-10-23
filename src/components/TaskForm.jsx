@@ -3,38 +3,43 @@ import PropTypes from "prop-types";
 import "./styles/TaskForm.css";
 import Tag from "./Tag";
 
-const TaskForm = ({ setTasks }) => {
+const TaskForm = ({ setTasks, setSearchValue }) => {
   const [taskData, setTaskData] = useState({
     task: "",
     status: "BA3",
     tags: [],
   });
 
-  const [courses] = useState([
-    "IC Course 1",
-    "IC Course 2",
-    "IC Course 3",
-    "IC Course 4",
-    "IC Course ",
-    "IC Course 6",
-    "IC Course 7",
-    "IC Course 8",
-    // Add more courses here
-  ]);
+  // useEffect(() => { // The effect hook
+  // The code that runs when the component mounts
+  // optional cleanup/return function
+  // }, [searchValue]); /// The dependencies array
 
-  const [filteredCourses, setFilteredCourses] = useState([]);
+  // const [courses] = useState([
+  //   "IC Course 1",
+  //   "IC Course 2",
+  //   "IC Course 3",
+  //   "IC Course 4",
+  //   "IC Course ",
+  //   "IC Course 6",
+  //   "IC Course 7",
+  //   "IC Course 8",
+  //   // Add more courses here
+  // ]);
 
-  // Filter courses as the user types in the task input field
-  useEffect(() => {
-    if (taskData.task) {
-      const filtered = courses.filter((course) =>
-        course.toLowerCase().includes(taskData.task.toLowerCase())
-      );
-      setFilteredCourses(filtered);
-    } else {
-      setFilteredCourses([]);
-    }
-  }, [taskData.task, courses]);
+  // const [filteredCourses, setFilteredCourses] = useState([]);
+
+  // // Filter courses as the user types in the task input field
+  // useEffect(() => {
+  //   if (taskData.task) {
+  //     const filtered = courses.filter((course) =>
+  //       course.toLowerCase().includes(taskData.task.toLowerCase())
+  //     );
+  //     setFilteredCourses(filtered);
+  //   } else {
+  //     setFilteredCourses([]);
+  //   }
+  // }, [taskData.task, courses]);
 
   const checkTag = (tag) => {
     return taskData.tags.some((item) => item === tag);
@@ -74,10 +79,10 @@ const TaskForm = ({ setTasks }) => {
     });
   };
 
-  const handleCourseSelect = (course) => {
-    setTaskData((prev) => ({ ...prev, task: course }));
-    setFilteredCourses([]); // Clear the search results after selecting a course
-  };
+  // const handleCourseSelect = (course) => {
+  //   setTaskData((prev) => ({ ...prev, task: course }));
+  //   setFilteredCourses([]); // Clear the search results after selecting a course
+  // };
 
   return (
     <header className="app_header">
@@ -89,7 +94,10 @@ const TaskForm = ({ setTasks }) => {
             value={taskData.task}
             className="task_input"
             placeholder="Search for IC Course"
-            onChange={handleChange}
+            onChange={(e) => {
+              setSearchValue(e.target.value)
+              handleChange(e);
+            }}
           />
           <select
             name="status"
@@ -108,7 +116,7 @@ const TaskForm = ({ setTasks }) => {
         </div>
 
         {/* Display filtered courses in a dropdown-like manner */}
-        {filteredCourses.length > 0 && (
+        {/* {filteredCourses.length > 0 && (
           <ul className="course-list">
             {filteredCourses.map((course, index) => (
               <li key={index} onClick={() => handleCourseSelect(course)}>
@@ -116,34 +124,34 @@ const TaskForm = ({ setTasks }) => {
               </li>
             ))}
           </ul>
-        )}
+        )} */}
 
         <div className="task_form_bottom_line">
-            <Tag
-              tagName="8 Credits"
-              selectTag={selectTag}
-              selected={checkTag("8 Credits")}
-            />
-            <Tag
-              tagName="6 Credits"
-              selectTag={selectTag}
-              selected={checkTag("6 Credits")}
-            />
-            <Tag
-              tagName="5 Credits"
-              selectTag={selectTag}
-              selected={checkTag("5 Credits")}
-            />
-            <Tag
-              tagName="4 Credits"
-              selectTag={selectTag}
-              selected={checkTag("4 Credits")}
-            />
-            <Tag
-              tagName="SHS - 2 Credits"
-              selectTag={selectTag}
-              selected={checkTag("SHS - 2 Credits")}
-            />
+          <Tag
+            tagName="8 Credits"
+            selectTag={selectTag}
+            selected={checkTag("8 Credits")}
+          />
+          <Tag
+            tagName="6 Credits"
+            selectTag={selectTag}
+            selected={checkTag("6 Credits")}
+          />
+          <Tag
+            tagName="5 Credits"
+            selectTag={selectTag}
+            selected={checkTag("5 Credits")}
+          />
+          <Tag
+            tagName="4 Credits"
+            selectTag={selectTag}
+            selected={checkTag("4 Credits")}
+          />
+          <Tag
+            tagName="SHS - 2 Credits"
+            selectTag={selectTag}
+            selected={checkTag("SHS - 2 Credits")}
+          />
         </div>
       </form>
     </header>
@@ -152,6 +160,7 @@ const TaskForm = ({ setTasks }) => {
 
 TaskForm.propTypes = {
   setTasks: PropTypes.func.isRequired,
+  setSearchValue: PropTypes.func.isRequired,
 };
 
 export default TaskForm;
