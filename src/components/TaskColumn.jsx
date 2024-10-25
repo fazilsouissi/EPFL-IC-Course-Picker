@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import "./styles/TaskColumn.css";
+import "./TaskColumn.css";
 import TaskCard from "./TaskCard";
 import DropArea from "./DropArea";
 

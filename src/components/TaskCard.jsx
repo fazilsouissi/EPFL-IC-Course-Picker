@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import "./styles/TaskCard.css";
+import "./TaskCard.css";
 import Tag from "./Tag";
 import deleteIcon from "../assets/delete.png";
 

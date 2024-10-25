@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-import "./styles/DropArea.css";
+import "./DropArea.css";
 
  
 const DropArea = ({ onDrop }) => {

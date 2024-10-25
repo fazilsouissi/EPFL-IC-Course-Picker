@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./styles/TaskForm.css";
+import "./TaskForm.css";
 import Tag from "./Tag";
 
 const TaskForm = ({ setTasks, setSearchValue }) => {

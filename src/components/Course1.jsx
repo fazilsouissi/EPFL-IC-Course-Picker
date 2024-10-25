@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import courses from "../json/courses.json";
-import "./styles/Course1.css";
+import "./Course1.css";
 
 const Course1 = ({ season, searchValue }) => {
   const [filteredCourses, setFilteredCourses] = useState({
