@@ -249,24 +249,24 @@
         "language": "FR",
         "season": "Fall",
         "credits": "2",
-        "ba": 2
+        "ba": 3
     },
     "HSS : Bachelor cycle BA4": {
         "language": "FR",
         "season": "Fall",
         "credits": "2",
-        "ba": 2
+        "ba": 4
     },
     "HSS : Bachelor cycle BA5": {
         "language": "FR",
         "season": "Fall",
         "credits": "2",
-        "ba": 2
+        "ba": 5
     },
     "SHS : Bachelor cycle BA6": {
         "language": "FR",
         "season": "Fall",
         "credits": "2",
-        "ba": 2
+        "ba": 6
     }
 }

@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import {useState} from "react";
 
 import "./Tag.css";
 
-const Tag = ({ tagName, selectTag, selected }) => {
+const CreditsTag = ({ tagName, selectTag, selected }) => {
     const [isHovered, setIsHovered] = useState(false);
     // const tagStyle = {
     //     "8 Credits": { backgroundColor: "#fda821" },
@@ -65,10 +65,10 @@ const Tag = ({ tagName, selectTag, selected }) => {
         </button>
     );
 };
-Tag.propTypes = {
+CreditsTag.propTypes = {
     tagName: PropTypes.string.isRequired,
     selectTag: PropTypes.func.isRequired,
     selected: PropTypes.bool.isRequired,
 };
 
-export default Tag;
+export default CreditsTag;

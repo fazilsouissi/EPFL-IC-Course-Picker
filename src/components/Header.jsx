@@ -8,7 +8,7 @@ const Header = () => {
           EPFL
       </span>{" "}
         </a>
-      <a href="https://github.com/fazilsouissi" className="credit-link">IC Course Picker</a>
+      <a href="https://github.com/fazilsouissi" className="credit-link">Computer Science Course Picker</a>
     </h1>
   );
 };

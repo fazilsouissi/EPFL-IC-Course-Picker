@@ -1,148 +1,125 @@
 import PropTypes from "prop-types";
-import {useState, useEffect} from "react";
-import courses from "../json/courses.json";
+import {useEffect, useState} from "react";
 import "./Course.css";
 
-const Course = ({season, searchValue}) => {
-    const [filteredCourses, setFilteredCourses] = useState({
-        firstHalf: [],
-        secondHalf: [],
+/**
+ * Course component to display courses for a given season and search value.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.season - The season to filter courses by.
+ * @param {string} props.searchValue - The search value to filter courses by.
+ * @returns {JSX.Element} The rendered Course component.
+ */
+const Course = ({season, searchValue, setBAFirstCourse, setBASecondCourse, sharedCourses, setSharedCourses}) => {
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
+  // Filter courses by season and search value when either changes
+  useEffect(() => {
+
+    const seasonFilteredCourses = Object.entries(sharedCourses).filter(
+        ([, courseInfos]) => courseInfos.season === season
+    );
+
+
+    // Further filter by searchValue (case-insensitive)
+    const searchRegex = new RegExp(searchValue, "i");
+    setFilteredCourses(
+        seasonFilteredCourses.filter(([courseName]) => searchRegex.test(courseName))
+    );
+  }, [searchValue, season, sharedCourses]);
+
+  /**
+   * Adjusts the font size of the course names to fit inside the container.
+   */
+  useEffect(() => {
+    function adjustFontSizeToFit() {
+      const textElements = document.querySelectorAll(".span-course"); // Correct class selector
+      if (textElements.length === 0) return; // Ensure elements are available
+
+      textElements.forEach((node) => {
+        const container = node.parentElement;
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+
+        let fontSize = 20;
+
+        if (node.classList.contains("span-cr")) {
+          node.style.fontSize = 13 + "px";
+        } else {
+          while (
+              node.scrollWidth > containerWidth ||
+              node.scrollHeight + fontSize + 2 > containerHeight
+              ) {
+            fontSize--;
+            node.style.fontSize = fontSize + "px";
+          }
+        }
+      });
+    }
+
+    // Call the function after the component has mounted and the DOM is ready
+    adjustFontSizeToFit();
+
+    // Add window resize event listener
+    window.addEventListener("resize", adjustFontSizeToFit);
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("resize", adjustFontSizeToFit);
+    };
+  }, [filteredCourses]);
+
+  // Handle adding a course and removing it from the DOM
+  const addCourseOnClick = (courseInfos, courseName) => (e) => {
+    e.preventDefault();
+    setSharedCourses((prevCourses) => {
+        if (Object.keys(prevCourses).some((name) => name === courseName)) {
+        // Remove the course
+        const newCourses = {...prevCourses};
+        delete newCourses[courseName];
+        return newCourses;
+        }
     });
 
-    // TODO faire avec les différents tag aussi (8, 6, 4, 2 Credits) pour filtrer, (utiliser un or si plusieurs tags sélectionnés)
+    console.log(`Course ${courseName} clicked and removed added to its respective BA${courseInfos.ba} courses`);
+  };
 
-    // TODO revoir le fonctionnement des deux useEffects
-    useEffect(() => {
-        // Filter courses by the given season
-        let coursesArray = Object.entries(courses).filter(
-            ([, courseInfos]) => courseInfos.season === season
-        );
-
-        // Split courses into two halves
-        let halfCourses = Math.ceil(coursesArray.length / 2);
-        let firstHalfCourses = coursesArray.slice(0, halfCourses);
-        let secondHalfCourses = coursesArray.slice(halfCourses);
-
-        // Filter courses by search value (case-insensitive)
-        const filteredFirstHalf = firstHalfCourses.filter(([courseName]) =>
-            new RegExp(searchValue, "i").test(courseName)
-        );
-        const filteredSecondHalf = secondHalfCourses.filter(([courseName]) =>
-            new RegExp(searchValue, "i").test(courseName)
-        );
-
-        // Set the filtered courses
-        setFilteredCourses({
-            firstHalf: filteredFirstHalf,
-            secondHalf: filteredSecondHalf,
-        });
-
-        // Re-run filtering when searchValue or season changes
-    }, [searchValue, season]);
-
-
-    useEffect(() => {
-        function adjustFontSizeToFit() {
-            const textElements = document.querySelectorAll('.span-course'); // Correct class selector
-            if (textElements.length === 0) return; // Ensure elements are available
-
-            textElements.forEach((node) => {
-                const container = node.parentElement;
-                const containerWidth = container.clientWidth;
-                const containerHeight = container.clientHeight;
-
-                let fontSize = 20;
-
-                if (node.classList.contains('span-cr')) {
-                    node.style.fontSize = 13 + "px";
-                } else {
-                    while (node.scrollWidth > containerWidth || node.scrollHeight + fontSize + 2 > containerHeight) {
-                        fontSize--;
-                        node.style.fontSize = fontSize + 'px';
-                    }
-                }
-            });
-        }
-
-        // Call the function after the component has mounted and the DOM is ready
-        adjustFontSizeToFit();
-
-        // Add window resize event listener
-        window.addEventListener('resize', adjustFontSizeToFit);
-
-        // Clean up the event listener on unmount
-        return () => {
-            window.removeEventListener('resize', adjustFontSizeToFit);
-        };
-    }, [filteredCourses]); // Trigger the effect after filteredCourses are updated
-    // Empty dependency array to run effect on mount
-
-
-
-
-
-    // // Dynamic font size adjustment logic
-    // useEffect(() => {
-    //   const adjustFontSizeToFit = () => {
-    //     const textElements = document.querySelectorAll(".span-course");
-    //     textElements.forEach((node) => {
-    //       const container = node.parentElement;
-    //       const containerWidth = container.clientWidth;
-    //       const containerHeight = container.clientHeight;
-
-    //       let fontSize = node.classList.contains("span-cr") ? 40 : 20;
-
-    //       // Adjust font size to fit inside the container
-    //       while (node.scrollWidth > containerWidth || node.scrollHeight > containerHeight) {
-    //         fontSize--;
-    //         node.style.fontSize = `${fontSize}px`;
-    //       }
-    //     });
-    //   };
-
-    //   adjustFontSizeToFit();
-
-    //   window.addEventListener("resize", adjustFontSizeToFit);
-    //   return () => window.removeEventListener("resize", adjustFontSizeToFit);
-    // }, [searchValue]);
-
-    return (
-        <div className="course">
-            <h3 className="season-title">
-                {season.toLowerCase() === "fall" ? "Fall" : "Spring"} Courses
-            </h3>
-            <div className="left-right-course-div">
-                {/* Render filtered first half courses */}
-                {filteredCourses.firstHalf.map(([courseName, courseInfos], index) => (
-                    <div key={index} className="individual-course-label">
-                        <div className="course-name-container common-color">
-                            <span className="span-course">{courseName}</span>
-                        </div>
-                        <div className="cr-container common-color">
-                            <p className="span-course span-cr">{courseInfos.credits} Cr</p>
-                        </div>
-                    </div>
-                ))}
-
-                {/* Render filtered second half courses */}
-                {filteredCourses.secondHalf.map(([courseName, courseInfos], index) => (
-                    <div key={index} className="individual-course-label">
-                        <div className="course-name-container common-color">
-                            <span className="span-course">{courseName}</span>
-                        </div>
-                        <div className="cr-container common-color">
-                            <p className="span-course span-cr">{courseInfos.credits} Cr</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+  return (
+      <div className="course">
+        <h3 className="season-title">
+          {season.toLowerCase() === "fall" ? "Fall" : "Spring"} Courses
+        </h3>
+        <div className="left-right-course-div">
+          {/* Render all filtered courses */}
+          {filteredCourses.map(([courseName, courseInfos], index) => (
+              <div
+                  key={`${courseName}-${index}`}
+                  className="individual-course-label"
+                  id={`course-${courseName.replace(/\s+/g, '-')}`}
+                  draggable
+                  onClick={addCourseOnClick(courseInfos, courseName)}
+              >
+                <div className="course-name-container common-color">
+                  <span className="span-course">{courseName}</span>
+                </div>
+                <div className="cr-container common-color">
+                  <p className="span-course span-cr">{courseInfos.credits} Cr</p>
+                </div>
+                <div className="info-icon">
+                  <img src="/path/to/info-icon.svg" className="info-bubble" alt="info"/>
+                </div>
+              </div>
+          ))}
         </div>
-    );
+      </div>
+  );
 };
 
 Course.propTypes = {
-    season: PropTypes.string.isRequired,
-    searchValue: PropTypes.string.isRequired, // Expect searchValue as prop
+  setBAFirstCourse: PropTypes.func.isRequired,
+  setBASecondCourse: PropTypes.func.isRequired,
+  season: PropTypes.string.isRequired,
+  searchValue: PropTypes.string.isRequired,
 };
 
 export default Course;

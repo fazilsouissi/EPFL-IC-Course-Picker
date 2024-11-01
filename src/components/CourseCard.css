@@ -1,4 +1,4 @@
-.task_card {
+.course_card {
     width: 100%;
     min-height: 100px;
     border: 1px solid #dcdcdc;
@@ -8,24 +8,24 @@
     cursor: grab;
 }
 
-.task_card:active {
+.course_card:active {
     transform: scale(0.98);
     opacity: 0.7;
     border: 1px solid #111;
 }
-.task_text {
+.course_text {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 15px;
 }
 
-.task_card_bottom_line {
+.course_card_bottom_line {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.task_delete {
+.course_delete {
     width: 35px;
     height: 35px;
     border-radius: 100%;
@@ -36,7 +36,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.task_delete:hover {
+.course_delete:hover {
     background-color: #ebebeb;
 }
 
@@ -46,6 +46,6 @@
     transition: all 0.3s ease-in-out;
 }
 
-.task_delete:hover .delete_icon {
+.course_delete:hover .delete_icon {
     opacity: 80%;
 }
