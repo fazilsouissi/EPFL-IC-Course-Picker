@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import courseJson from "../json/courses.json";
 
 import "./Course.css"
-import {useEffect} from "react";
 
 const CourseColumn = ({
                         title,
@@ -23,49 +22,68 @@ const CourseColumn = ({
   /**
    * Adjusts the font size of the course names to fit inside the container.
    */
-  useEffect(() => {
-    function adjustFontSizeToFit() {
-      const textElements = document.querySelectorAll(".span-course"); // Correct class selector
-      if (textElements.length === 0) return; // Ensure elements are available
-
-      textElements.forEach((node) => {
-        const container = node.parentElement;
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-
-        let fontSize = 20;
-
-        if (node.classList.contains("span-cr")) {
-          node.style.fontSize = 13 + "px";
-        } else {
-          while (
-              node.scrollWidth > containerWidth ||
-              node.scrollHeight + fontSize + 2 > containerHeight
-              ) {
-            fontSize--;
-            node.style.fontSize = fontSize + "px";
-          }
-        }
-      });
-    }
-
-    // Call the function after the component has mounted and the DOM is ready
-    adjustFontSizeToFit();
-
-    // Add window resize event listener
-    window.addEventListener("resize", adjustFontSizeToFit);
-
-    // Clean up the event listener on unmount
-    return () => {
-      window.removeEventListener("resize", adjustFontSizeToFit);
-    };
-  }, [sharedCourses]);
+  // useEffect(() => {
+  //   function adjustFontSizeToFit() {
+  //     const textElements = document.querySelectorAll(".span-course"); // Correct class selector
+  //     if (textElements.length === 0) return; // Ensure elements are available
+  //
+  //     textElements.forEach((node) => {
+  //       const container = node.parentElement;
+  //       const containerWidth = container.clientWidth;
+  //       const containerHeight = container.clientHeight;
+  //
+  //       let fontSize = 20;
+  //
+  //       if (node.classList.contains("span-cr")) {
+  //         node.style.fontSize = 13 + "px";
+  //       } else {
+  //         while (
+  //             node.scrollWidth > containerWidth ||
+  //             node.scrollHeight + fontSize + 2 > containerHeight
+  //             ) {
+  //           fontSize--;
+  //           node.style.fontSize = fontSize + "px";
+  //         }
+  //       }
+  //     });
+  //   }
+  //   // console.log(Object.entries(complementarySharedCourses).filter(([courseName, courseInfos]) => {
+  //   //   // Assuming ba is a number or contains a valid number at index 2
+  //   //   const baValue = Number(ba.at(2)); // or Number(ba.at(2)) if ba is a string/array
+  //   //   return courseInfos.ba === baValue;
+  //   // }));
+  //
+  //   console.log(Object.values(complementarySharedCourses).filter(courseInfos => {
+  //     // Assuming ba is a number or contains a valid number at index 2
+  //     const baValue = Number(ba.at(2)); // or Number(ba.at(2)) if ba is a string/array
+  //     return courseInfos.ba === baValue;
+  //   }));
+  //
+  //
+  //
+  //   // Call the function after the component has mounted and the DOM is ready
+  //   adjustFontSizeToFit();
+  //
+  //   // Add window resize event listener
+  //   window.addEventListener("resize", adjustFontSizeToFit);
+  //
+  //   // Clean up the event listener on unmount
+  //   return () => {
+  //     window.removeEventListener("resize", adjustFontSizeToFit);
+  //   };
+  //
+  //
+  // }, [sharedCourses]);
 
 
   return (
       <section className="course_column">
         <h2 className="course_column_heading">
-          {title}
+          {title} {(Object.values(complementarySharedCourses).filter(courseInfos => {
+          // Assuming ba is a number or contains a valid number at index 2
+          const baValue = Number(ba.at(2)); // or Number(ba.at(2)) if ba is a string/array
+          return courseInfos.ba === baValue;
+        })).reduce((acc, course) => acc + Number(course.credits), 0)} Cr
         </h2>
 
         <DropArea onDrop={() => onDrop(ba, 0)}/>

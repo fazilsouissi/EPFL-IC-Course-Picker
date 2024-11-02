@@ -49,6 +49,7 @@ const App = () => {
 
     console.log("Reupdated complementary courses", complementaryCourses);
     setComplementarySharedCourses(complementaryCourses);
+    
   }, [sharedCourses]);
 
   const [BA3Courses, setBA3Courses] = useState([]);
