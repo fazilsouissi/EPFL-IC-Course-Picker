@@ -83,7 +83,7 @@ const CourseColumn = ({
                  event.preventDefault();
                }}>
         <h2 className="course_column_heading">
-          {title} {getCreditsForBa()} Cr==============================================================================================================================================================================================================
+          {title} {getCreditsForBa()} Cr
         </h2>
 
         <DropArea onDrop={() => {
