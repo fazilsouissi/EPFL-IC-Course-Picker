@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import {useEffect, useState} from "react";
 import "./Course.css";
 
+import IndividualCourse from "./IndividualCourse";
+
 /**
  * Course component to display courses for a given season and search value.
  *
@@ -10,7 +12,7 @@ import "./Course.css";
  * @param {string} props.searchValue - The search value to filter courses by.
  * @returns {JSX.Element} The rendered Course component.
  */
-const Course = ({season, searchValue, setBAFirstCourse, setBASecondCourse, sharedCourses, setSharedCourses}) => {
+const Course = ({season, searchValue, sharedCourses, setSharedCourses}) => {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   // Filter courses by season and search value when either changes
@@ -73,12 +75,12 @@ const Course = ({season, searchValue, setBAFirstCourse, setBASecondCourse, share
   const addCourseOnClick = (courseInfos, courseName) => (e) => {
     e.preventDefault();
     setSharedCourses((prevCourses) => {
-        if (Object.keys(prevCourses).some((name) => name === courseName)) {
+      if (Object.keys(prevCourses).some((name) => name === courseName)) {
         // Remove the course
         const newCourses = {...prevCourses};
         delete newCourses[courseName];
         return newCourses;
-        }
+      }
     });
 
     console.log(`Course ${courseName} clicked and removed added to its respective BA${courseInfos.ba} courses`);
@@ -92,23 +94,9 @@ const Course = ({season, searchValue, setBAFirstCourse, setBASecondCourse, share
         <div className="left-right-course-div">
           {/* Render all filtered courses */}
           {filteredCourses.map(([courseName, courseInfos], index) => (
-              <div
-                  key={`${courseName}-${index}`}
-                  className="individual-course-label"
-                  id={`course-${courseName.replace(/\s+/g, '-')}`}
-                  draggable
-                  onClick={addCourseOnClick(courseInfos, courseName)}
-              >
-                <div className="course-name-container common-color">
-                  <span className="span-course">{courseName}</span>
-                </div>
-                <div className="cr-container common-color">
-                  <p className="span-course span-cr">{courseInfos.credits} Cr</p>
-                </div>
-                <div className="info-icon">
-                  <img src="/path/to/info-icon.svg" className="info-bubble" alt="info"/>
-                </div>
-              </div>
+              <IndividualCourse key={`${courseName}-${index}`} courseName={courseName}
+                                onClick={addCourseOnClick(courseInfos, courseName)}
+                                courseInfos={courseInfos}/>
           ))}
         </div>
       </div>
@@ -116,8 +104,6 @@ const Course = ({season, searchValue, setBAFirstCourse, setBASecondCourse, share
 };
 
 Course.propTypes = {
-  setBAFirstCourse: PropTypes.func.isRequired,
-  setBASecondCourse: PropTypes.func.isRequired,
   season: PropTypes.string.isRequired,
   searchValue: PropTypes.string.isRequired,
 };

@@ -3,37 +3,43 @@
         "language": "EN",
         "season": "Spring",
         "credits": "8",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Analysis III (for IC)": {
         "language": "EN",
         "season": "Fall",
         "credits": "6",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Software construction": {
         "language": "EN",
         "season": "Fall",
         "credits": "8",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Computer architecture": {
         "language": "EN",
         "season": "Fall",
         "credits": "8",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Computer systems": {
         "language": "EN",
         "season": "Spring",
         "credits": "8",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Probability and statistics (for IC)": {
         "language": "EN",
         "season": "Fall",
         "credits": "6",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Computer security and privacy": {
         "language": "EN",
@@ -57,13 +63,15 @@
         "language": "EN",
         "season": "Fall",
         "credits": "4",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Analysis IV": {
         "language": "EN",
         "season": "Spring",
         "credits": "4",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Artificial intelligence": {
         "language": "FR",
@@ -81,7 +89,8 @@
         "language": "EN",
         "season": "Spring",
         "credits": "6",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Computer language processing": {
         "language": "EN",
@@ -105,7 +114,8 @@
         "language": "FR",
         "season": "Fall",
         "credits": "4",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Electronics II (for IC)": {
         "language": "FR",
@@ -117,7 +127,8 @@
         "language": "FR",
         "season": "Spring",
         "credits": "5",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Internet analytics": {
         "language": "EN",
@@ -129,7 +140,8 @@
         "language": "EN",
         "season": "Spring",
         "credits": "6",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Introduction to quantum computation": {
         "language": "EN",
@@ -153,7 +165,8 @@
         "language": "EN",
         "season": "Fall",
         "credits": "4",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Parallelism and concurrency in software": {
         "language": "EN",
@@ -171,19 +184,22 @@
         "language": "FR",
         "season": "Fall",
         "credits": "8",
-        "ba": 5
+        "ba": 5,
+        "ba_secondary": 6
     },
     "Responsible software": {
         "language": "EN",
         "season": "Fall",
         "credits": "4",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Signal processing": {
         "language": "EN",
         "season": "Spring",
         "credits": "8",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Stochastic models in communication": {
         "language": "FR",
@@ -195,25 +211,29 @@
         "language": "EN",
         "season": "Fall",
         "credits": "5",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Analytical mechanics (for SPH)": {
         "language": "FR",
         "season": "Fall",
         "credits": "5",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "General physics : electromagnetism": {
         "language": "FR",
         "season": "Fall",
         "credits": "4",
-        "ba": 3
+        "ba": 3,
+        "ba_secondary": 5
     },
     "Introduction to life sciences (for IC)": {
         "language": "FR",
         "season": "Spring",
         "credits": "6",
-        "ba": 4
+        "ba": 4,
+        "ba_secondary": 6
     },
     "Neuroscience foundations for engineers": {
         "language": "EN",

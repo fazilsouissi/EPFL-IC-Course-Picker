@@ -95,20 +95,20 @@ const CourseForm = ({setCourses, setSearchValue}) => {
                   handleChange(e);
                 }}
             />
-            <select
-                name="status"
-                value={courseData.status}
-                className="course_status"
-                onChange={handleChange}
-            >
-              <option value="BA3">BA3</option>
-              <option value="BA4">BA4</option>
-              <option value="BA5">BA5</option>
-              <option value="BA6">BA6</option>
-            </select>
-            <button type="submit" className="course_submit">
-              + Add Course
-            </button>
+            {/*<select*/}
+            {/*    name="status"*/}
+            {/*    value={courseData.status}*/}
+            {/*    className="course_status"*/}
+            {/*    onChange={handleChange}*/}
+            {/*>*/}
+            {/*  <option value="BA3">BA3</option>*/}
+            {/*  <option value="BA4">BA4</option>*/}
+            {/*  <option value="BA5">BA5</option>*/}
+            {/*  <option value="BA6">BA6</option>*/}
+            {/*</select>*/}
+            {/*<button type="submit" className="course_submit">*/}
+            {/*  + Add Course*/}
+            {/*</button>*/}
           </div>
 
           {/* Display filtered courses in a dropdown-like manner */}

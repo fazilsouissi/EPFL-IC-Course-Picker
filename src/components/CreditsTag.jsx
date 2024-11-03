@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import {useState} from "react";
 
-import "./Tag.css";
+import "./CreditsTag.css";
 
 const CreditsTag = ({ tagName, selectTag, selected }) => {
     const [isHovered, setIsHovered] = useState(false);

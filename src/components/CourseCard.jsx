@@ -5,7 +5,7 @@ import CreditsTag from "./CreditsTag.jsx";
 import deleteIcon from "../assets/delete.png";
 
 /**
- * Component responsible for the course card present in the course column
+ * Component responsible for the course card present in the course column NOT REALLY USED ANYMORE
  *
  * @param title
  * @param tags
