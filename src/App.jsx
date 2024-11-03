@@ -15,13 +15,21 @@ const App = () => {
   const [courses, setCourses] = useState(JSON.parse(oldCourses) || []);
 
 
-  const [sharedCourses, setSharedCourses] = useState(coursesJson)
-  const [complementarySharedCourses, setComplementarySharedCourses] = useState([]);
+  const [sharedCourses, setSharedCourses] = useState([])
+  const [complementarySharedCourses, setComplementarySharedCourses] = useState(coursesJson);
 
 
-  // Update complementary courses when shared courses change
+  // // Update complementary courses when shared courses change
   useEffect(() => {
     // Calculate complementary courses
+    // const sharedCourseNames = new Set(Object.keys(coursesJson));
+    // const complementaryCourses = Object.keys(coursesJson)
+    //     .filter(courseName => !sharedCourseNames.has(courseName))
+    //     .reduce((acc, courseName) => {
+    //       acc[courseName] = coursesJson[courseName];
+    //       return acc;
+    //     }, {});
+
     const sharedCourseNames = new Set(Object.keys(sharedCourses));
     const complementaryCourses = Object.keys(coursesJson)
         .filter(courseName => !sharedCourseNames.has(courseName))
@@ -34,11 +42,6 @@ const App = () => {
     setComplementarySharedCourses(complementaryCourses);
 
   }, [sharedCourses]);
-
-
-  useEffect(() => {
-
-  }, []);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -54,15 +57,17 @@ const App = () => {
 
   return (
       <>
-        <Header sumOfCredits={Object.values(complementarySharedCourses).reduce((acc, curr) => {
-            return acc + Number(curr.credits);
-        },0)}/>
+        <Header sumOfCredits={Object.values(sharedCourses).reduce((acc, curr) => {
+          return acc + Number(curr.credits);
+        }, 0)}/>
         <div className="app">
           <div>
             <CourseForm setCourses={setCourses} setSearchValue={setSearchValue}/>
-            <Course season="Fall" searchValue={searchValue} sharedCourses={sharedCourses}
+            <Course season="Fall" searchValue={searchValue} complementarySharedCourses={complementarySharedCourses}
+                    setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
                     setSharedCourses={setSharedCourses}/>
-            <Course season="Spring" searchValue={searchValue} sharedCourses={sharedCourses}
+            <Course season="Spring" searchValue={searchValue} complementarySharedCourses={complementarySharedCourses}
+                    setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
                     setSharedCourses={setSharedCourses}/>
           </div>
           <main className="app_main">

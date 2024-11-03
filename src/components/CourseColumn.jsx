@@ -1,9 +1,11 @@
 import "./CourseColumn.css";
 import DropArea from "./DropArea";
 import courseJson from "../json/courses.json";
+import {addCourseToColumn} from "./Course.jsx";
 
 import "./Course.css"
 import IndividualCourse from "./IndividualCourse.jsx";
+
 
 const CourseColumn = ({
                         title,
@@ -13,25 +15,25 @@ const CourseColumn = ({
                         complementarySharedCourses,
                         setComplementarySharedCourses
                       }) => {
+
   const removeCourseFromColumn = (courseName) => {
     return (e) => {
       e.preventDefault();
       setSharedCourses((prevCourses) => {
-        if (!Object.keys(prevCourses).some((name) => name === courseName)) {
-          // Add the course
-          const newCourses = {...prevCourses};
-          newCourses[courseName] = courseJson[courseName]; // Add course data from courseJson
-          return newCourses;
+        if (Object.keys(prevCourses).some((name) => name === courseName)) {
+          // remove the course
+            const newCourses = {...prevCourses};
+            delete newCourses[courseName];
+            console.log(`Course ${courseName} clicked and removed from its respective BA${ba} courses`);
+            return newCourses;
         }
         return prevCourses; // Return the same state if the course is already present
       });
-      // console.log(`Course ${courseName} clicked`);
-      // console.log(sharedCourses)
     };
   }
 
   const getCreditsForBa = () => {
-    return (Object.values(complementarySharedCourses).filter(courseInfos => {
+    return (Object.values(sharedCourses).filter(courseInfos => {
       // Assuming ba is a number or contains a valid number at index 2
       const baValue = Number(ba.at(2)); // or Number(ba.at(2)) if ba is a string/array
       return courseInfos.ba === baValue;
@@ -39,41 +41,33 @@ const CourseColumn = ({
   }
 
 
-  const addCourseToColumn = (courseName, event) => {
-    // setSharedCourses((prevCourses) => {
-    //   if (Object.keys(prevCourses).some((name) => name === courseName)) {
-    //     // Remove the course
-    //     // console.log(ba)
-    //     // console.log(courseName)
-    //     if (courseJson[courseName].ba === Number(ba.at(2))) {
-    //       const newCourses = {...prevCourses};
-    //       delete newCourses[courseName];
-    //       return newCourses;
-    //     }
-    //   }
-    //   return prevCourses;
-    // });
-    setComplementarySharedCourses((prevCourses) => {
-        if (Object.keys(prevCourses).some((name) => name === courseName)) {
-        return prevCourses;
-        }
-        else {
-            const newCourses = {...prevCourses};
-            newCourses[courseName] = courseJson[courseName]; // Add course data from courseJson
-            return newCourses;
-        }
-    }
-    );
-
-    // console.log(`Course ${courseName} clicked and removed added to its respective BA${event.target} courses`);
-  }
+  // const addCourseToColumn = (courseName, event) => {
+  //   // setSharedCourses((prevCourses) => {
+  //   //       if (Object.keys(prevCourses).some((name) => name === courseName)) {
+  //   //         return prevCourses;
+  //   //       } else {
+  //   //         const newCourses = {...prevCourses};
+  //   //         newCourses[courseName] = courseJson[courseName]; // Add course data from courseJson
+  //   //         return newCourses;
+  //   //       }
+  //   //     }
+  //   // );
+  //
+  //   // console.log(`Course ${courseName} clicked and removed added to its respective BA${event.target} courses`);
+  // }
 
   const handleDrop = (event) => {
     event.preventDefault();
     const courseName = event.dataTransfer.getData("courseName");
-    if (courseName) addCourseToColumn(courseName, event);
-    // console.log(`Course ${courseName} dropped`);
-  }
+    const courseInfos = courseJson[courseName];
+
+    if (
+        courseName &&
+        (courseInfos?.ba === Number(ba.at(2)) || courseInfos?.ba_secondary === Number(ba.at(2))) // Optional chaining
+    ) {
+      addCourseToColumn(courseInfos, courseName, Number(ba.at(2)), setSharedCourses)(event);
+    } else console.log(`Course ${courseName} dropped but not added to its respective BA${ba} courses`);
+  };
 
   return (
       <section className="course_column"
@@ -91,7 +85,8 @@ const CourseColumn = ({
 
         <div className="course-column">
           {
-            Object.entries(complementarySharedCourses).map(([courseName, courseInfos], index) => (
+            Object.entries(sharedCourses).map(([courseName, courseInfos], index) => (
+                // TODO CHANGE THIS LINE BECAUSE THE BA IS NOT ALWAYS THE SAME
                 courseInfos.ba === Number(ba.at(2)) && (
                     <IndividualCourse key={`${courseName}-${index}`} courseName={courseName} courseInfos={courseInfos}
                                       onClick={removeCourseFromColumn(courseName)}/>
@@ -101,7 +96,7 @@ const CourseColumn = ({
           }
         </div>
         {/* Make sure that this DropArea is visible if the complementarySharedCourse length > 0 for the specific column*/}
-        {/*{Object.keys(complementarySharedCourses).length > 0 && <DropArea onDrop={() => {*/}
+        {/*{Object.keys(sharedCourses).length > 0 && <DropArea onDrop={() => {*/}
         {/*}}/>}*/}
 
       </section>

@@ -90,6 +90,9 @@
   display: none; /* Hide the icon by default */
 }
 
+
+
+
 .span-course {
   font-weight: 500;
   /* font-size: clamp(0.4rem, 19cqi, 0.8rem);  Dynamically scale font size based on available space */
