@@ -32,11 +32,16 @@ const App = () => {
 
     console.log("Reupdated complementary courses", complementaryCourses);
     setComplementarySharedCourses(complementaryCourses);
-    
+
   }, [sharedCourses]);
 
+
+  useEffect(() => {
+
+  }, []);
+
   const [searchValue, setSearchValue] = useState("");
-  
+
 
   // todo vérifier les Fall Courses (BA3, BA5) et Spring Courses (BA4, BA6) qui
   //  sont présents dans les respective ba_courses et les ajouter dans les courses forms (si présent dans un,
@@ -67,6 +72,7 @@ const App = () => {
                 sharedCourses={sharedCourses}
                 setSharedCourses={setSharedCourses}
                 complementarySharedCourses={complementarySharedCourses}
+                setComplementarySharedCourses={setComplementarySharedCourses}
             />
             <CourseColumn
                 title="BA4"
@@ -74,6 +80,7 @@ const App = () => {
                 sharedCourses={sharedCourses}
                 setSharedCourses={setSharedCourses}
                 complementarySharedCourses={complementarySharedCourses}
+                setComplementarySharedCourses={setComplementarySharedCourses}
             />
             <CourseColumn
                 title="BA5"
@@ -81,6 +88,7 @@ const App = () => {
                 sharedCourses={sharedCourses}
                 setSharedCourses={setSharedCourses}
                 complementarySharedCourses={complementarySharedCourses}
+                setComplementarySharedCourses={setComplementarySharedCourses}
             />
             <CourseColumn
                 title="BA6"
@@ -88,6 +96,7 @@ const App = () => {
                 sharedCourses={sharedCourses}
                 setSharedCourses={setSharedCourses}
                 complementarySharedCourses={complementarySharedCourses}
+                setComplementarySharedCourses={setComplementarySharedCourses}
             />
           </main>
         </div>

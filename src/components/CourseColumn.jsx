@@ -10,7 +10,8 @@ const CourseColumn = ({
                         ba,
                         sharedCourses,
                         setSharedCourses,
-                        complementarySharedCourses
+                        complementarySharedCourses,
+                        setComplementarySharedCourses
                       }) => {
   const removeCourseFromColumn = (courseName) => {
     return (e) => {
@@ -39,19 +40,30 @@ const CourseColumn = ({
 
 
   const addCourseToColumn = (courseName, event) => {
-    setSharedCourses((prevCourses) => {
-      if (Object.keys(prevCourses).some((name) => name === courseName)) {
-        // Remove the course
-        // console.log(ba)
-        // console.log(courseName)
-        if (courseJson[courseName].ba === Number(ba.at(2))) {
-          const newCourses = {...prevCourses};
-          delete newCourses[courseName];
-          return newCourses;
+    // setSharedCourses((prevCourses) => {
+    //   if (Object.keys(prevCourses).some((name) => name === courseName)) {
+    //     // Remove the course
+    //     // console.log(ba)
+    //     // console.log(courseName)
+    //     if (courseJson[courseName].ba === Number(ba.at(2))) {
+    //       const newCourses = {...prevCourses};
+    //       delete newCourses[courseName];
+    //       return newCourses;
+    //     }
+    //   }
+    //   return prevCourses;
+    // });
+    setComplementarySharedCourses((prevCourses) => {
+        if (Object.keys(prevCourses).some((name) => name === courseName)) {
+        return prevCourses;
         }
-      }
-      return prevCourses;
-    });
+        else {
+            const newCourses = {...prevCourses};
+            newCourses[courseName] = courseJson[courseName]; // Add course data from courseJson
+            return newCourses;
+        }
+    }
+    );
 
     // console.log(`Course ${courseName} clicked and removed added to its respective BA${event.target} courses`);
   }
@@ -71,7 +83,7 @@ const CourseColumn = ({
                  event.preventDefault();
                }}>
         <h2 className="course_column_heading">
-          {title} {getCreditsForBa()} Cr
+          {title} {getCreditsForBa()} Cr==============================================================================================================================================================================================================
         </h2>
 
         <DropArea onDrop={() => {
