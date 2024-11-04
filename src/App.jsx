@@ -13,6 +13,7 @@ const App = () => {
 
 
   const [courses, setCourses] = useState(JSON.parse(oldCourses) || []);
+  const [selectedTags, setSelectedTags] = useState([]);
 
 
   const [sharedCourses, setSharedCourses] = useState([])
@@ -61,14 +62,17 @@ const App = () => {
           return acc + Number(curr.credits);
         }, 0)}/>
         <div className="app">
-          <div>
-            <CourseForm setCourses={setCourses} setSearchValue={setSearchValue}/>
-            <Course season="Fall" searchValue={searchValue} complementarySharedCourses={complementarySharedCourses}
-                    setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
-                    setSharedCourses={setSharedCourses}/>
+          <div className={"course-menu"}>
+            <CourseForm setCourses={setCourses} setSearchValue={setSearchValue} setSelectedTags={setSelectedTags}
+                        selectedTags={selectedTags}/>
+            <Course season="Fall" searchValue={searchValue}
+                    complementarySharedCourses={complementarySharedCourses}
+                    setComplementarySharedCourses={setComplementarySharedCourses}
+                    sharedCourses={sharedCourses}
+                    setSharedCourses={setSharedCourses} selectedTags={selectedTags}/>
             <Course season="Spring" searchValue={searchValue} complementarySharedCourses={complementarySharedCourses}
                     setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
-                    setSharedCourses={setSharedCourses}/>
+                    setSharedCourses={setSharedCourses} selectedTags={selectedTags}/>
           </div>
           <main className="app_main">
             <CourseColumn

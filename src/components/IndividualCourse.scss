@@ -1,0 +1,115 @@
+// Define colors for each credit type
+$credit-colors: (
+        8: (
+                hover: #FF9999,
+                selected: #FFC1C1
+        ),
+        6: (
+                hover: #FFCC99,
+                selected: #FFE5B4
+        ),
+        5: (
+                hover: #FFEB99,
+                selected: #FFFACD
+        ),
+        4: (
+                hover: #A3D1A3,
+                selected: #C1E1C1
+        ),
+        3: (
+                hover: #85AFCB,
+                selected: #A7C7E7
+        ),
+        2: (
+                hover: #C39BD3,
+                selected: #D7BDE2
+        ),
+        default: (
+                hover: #f9f9f9,
+                selected: #f0f0f0
+        )
+);
+
+// SCSS function to get the color based on credits and state
+@function color-for-credits($credits, $state) {
+  @if map-has-key($credit-colors, $credits) {
+    @return map-get(map-get($credit-colors, $credits), $state);
+  } @else {
+    @return map-get(map-get($credit-colors, default), $state);
+  }
+}
+
+// Mixin to apply the background colors based on credits
+@mixin tag-style($credits) {
+  background-color: color-for-credits($credits, selected);
+
+  &:hover {
+    background-color: color-for-credits($credits, hover);
+  }
+}
+
+// todo create another mixin to apply the border color based on credits
+@mixin tag-border($credits) {
+  border-color: color-for-credits($credits, hover);
+
+  &:hover {
+    border-color: color-for-credits($credits, selected);
+  }
+}
+
+// Example usage of the mixin for each credit type
+.tag-8-credits {
+  @include tag-style(8);
+}
+
+.tag-6-credits {
+  @include tag-style(6);
+}
+
+.tag-5-credits {
+  @include tag-style(5);
+}
+
+.tag-4-credits {
+  @include tag-style(4);
+}
+
+.tag-3-credits {
+  @include tag-style(3);
+}
+
+.tag-2-credits {
+  @include tag-style(2);
+}
+
+.tag-default {
+  @include tag-style(default);
+}
+
+.border-8 {
+  @include tag-border(8);
+}
+
+.border-6 {
+  @include tag-border(6);
+}
+
+.border-5 {
+  @include tag-border(5);
+}
+
+.border-4 {
+  @include tag-border(4);
+}
+
+.border-3 {
+  @include tag-border(3);
+}
+
+.border-2 {
+  @include tag-border(2);
+}
+
+.border-default {
+  @include tag-border(default);
+}

@@ -1,0 +1,23 @@
+// SASS function to map length to a responsive font size using clamp
+@function font-size-for-length($length) {
+  @if $length <= 33 {
+    // Font size goes from 10px (min) to 13px (max) with scaling at 1440px
+    @return clamp(10px, 0.9vw + 8px, 13px);
+  } @else if $length <= 45 {
+    // Font size goes from 9px (min) to 12px (max) with scaling at 1440px
+    @return clamp(9px, 0.8vw + 7px, 12px);
+  } @else if $length == 4 {
+    // Font size goes from 10px (min) to 13px (max) with scaling at 1440px
+    @return clamp(10px, 0.9vw + 8px, 13px);
+  } @else {
+    // Font size goes from 8px (min) to 11px (max) with scaling at 1440px
+    @return clamp(8px, 0.7vw + 6px, 11px);
+  }
+}
+
+// Generate font size classes for different text lengths
+@for $i from 1 through 50 {
+  .font-size-#{$i} {
+    font-size: font-size-for-length($i);
+  }
+}
