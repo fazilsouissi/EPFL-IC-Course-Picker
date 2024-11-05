@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
 
+:root {
+  --color-8-credits-selected: #FF9999;  /* Darker Pink */
+  --color-8-credits-hover: #FFC1C1;     /* Pastel Pink */
+  --color-6-credits-selected: #FFCC99;  /* Darker Apricot */
+  --color-6-credits-hover: #FFE5B4;     /* Pastel Apricot */
+  --color-5-credits-selected: #FFEB99;  /* Darker Yellow */
+  --color-5-credits-hover: #FFFACD;     /* Pastel Yellow */
+  --color-4-credits-selected: #A3D1A3;  /* Darker Green */
+  --color-4-credits-hover: #C1E1C1;     /* Pastel Green */
+  --color-shs-2-credits-selected: #C39BD3;  /* Darker Purple */
+  --color-shs-2-credits-hover: #D7BDE2;     /* Pastel Purple */
+  --color-3-credits-selected: #85AFCB;  /* Darker Blue */
+  --color-3-credits-hover: #A7C7E7;     /* Pastel Blue */
+  --color-sort-by-credits-selected: #1e1e1e;  /* Darker Pink */
+  --color-sort-by-credits-hover: #dcdcdc;     /* Pastel Pink */
+  --color-sort-by-blocks-selected: #1e1e1e;  /* Darker Pink */
+  --color-sort-by-blocks-hover: #dcdcdc;     /* Pastel Pink */
+  --color-default-selected: #f9f9f9;  /* Default grayish background */
+  --color-default-hover: #f0f0f0;     /* Lighter gray hover */
+}
+
 * {
   margin: 0;
   padding: 0;
