@@ -15,9 +15,14 @@ const localSortBy = JSON.parse(localStorage.getItem("sortBy"));
 const App = () => {
 
   const [selectedTags, setSelectedTags] = useState([]);
-  const [sortBy, setSortBy] = useState([localSortBy] || ["Sort by Credits"]);
+  useEffect(() => {
+    console.log(localSortBy, "localSortBy");
+  }, []);
+  const [sortBy, setSortBy] = useState([localSortBy || "Sort by Credits"]);
   const [isDragging, setIsDragging] = useState(false);
-
+  useEffect(() => {
+    console.log("sort by", sortBy);
+  }, []);
 
   const [sharedCourses, setSharedCourses] = useState(localSavedCourses || []);
   const [complementarySharedCourses, setComplementarySharedCourses] = useState([]);
@@ -140,13 +145,13 @@ const App = () => {
 
 
         }>
-          <Course season="All" searchValue={searchValue}
-                  complementarySharedCourses={complementarySharedCourses}
-                  setComplementarySharedCourses={setComplementarySharedCourses}
-                  sharedCourses={sharedCourses}
-                  setSharedCourses={setSharedCourses} selectedTags={selectedTags}
-                  sortBy={sortBy}
-          />
+          {/*<Course season="All" searchValue={searchValue}*/}
+          {/*        complementarySharedCourses={complementarySharedCourses}*/}
+          {/*        setComplementarySharedCourses={setComplementarySharedCourses}*/}
+          {/*        sharedCourses={sharedCourses}*/}
+          {/*        setSharedCourses={setSharedCourses} selectedTags={selectedTags}*/}
+          {/*        sortBy={sortBy}*/}
+          {/*/>*/}
         </div>
       </div>
   );

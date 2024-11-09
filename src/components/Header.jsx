@@ -3,7 +3,7 @@ import CreditsTag from "./CreditsTag.jsx";
 
 const Header = ({sumOfCredits, sortBy, setSortBy}) => {
   const checkTag = (tag) => {
-    return sortBy.some((item) => item === tag);
+    return sortBy.some((item) => String(item) === tag);
   };
 
   const selectTag = (tag) => {
