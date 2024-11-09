@@ -1,7 +1,6 @@
 {
   "homepage": "http://fazilsouissi.github.io/EPFL-IC-Course-Picker",
-
-  "name",: "epfl-ic-course-picker",
+  "name": "epfl-ic-course-picker",
   "private": true,
   "version": "0.0.0",
   "type": "module",
