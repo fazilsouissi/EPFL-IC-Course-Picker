@@ -1,7 +1,7 @@
 import "./CourseColumn.css";
 import DropArea from "./DropArea";
 import courseJson from "../json/courses.json";
-import {addCourseToColumn} from "./Course.jsx";
+import {addCourseToColumn, removeCourseFromColumn} from "./Course.jsx";
 
 import "./Course.css"
 import IndividualCourse from "./IndividualCourse.jsx";
@@ -16,21 +16,7 @@ const CourseColumn = ({
                         setComplementarySharedCourses
                       }) => {
 
-  const removeCourseFromColumn = (courseName) => {
-    return (e) => {
-      e.preventDefault();
-      setSharedCourses((prevCourses) => {
-        if (Object.keys(prevCourses).some((name) => name === courseName)) {
-          // remove the course
-            const newCourses = {...prevCourses};
-            delete newCourses[courseName];
-            console.log(`Course ${courseName} clicked and removed from its respective BA${ba} courses`);
-            return newCourses;
-        }
-        return prevCourses; // Return the same state if the course is already present
-      });
-    };
-  }
+
 
   const getCreditsForBa = () => {
     return (Object.values(sharedCourses).filter(courseInfos => {
@@ -39,22 +25,6 @@ const CourseColumn = ({
       return courseInfos.ba === baValue;
     })).reduce((acc, course) => acc + Number(course.credits), 0)
   }
-
-
-  // const addCourseToColumn = (courseName, event) => {
-  //   // setSharedCourses((prevCourses) => {
-  //   //       if (Object.keys(prevCourses).some((name) => name === courseName)) {
-  //   //         return prevCourses;
-  //   //       } else {
-  //   //         const newCourses = {...prevCourses};
-  //   //         newCourses[courseName] = courseJson[courseName]; // Add course data from courseJson
-  //   //         return newCourses;
-  //   //       }
-  //   //     }
-  //   // );
-  //
-  //   // console.log(`Course ${courseName} clicked and removed added to its respective BA${event.target} courses`);
-  // }
 
   const handleDrop = (event) => {
     event.preventDefault();
@@ -85,14 +55,13 @@ const CourseColumn = ({
 
         <div className="course-column">
           {
-            Object.entries(sharedCourses).map(([courseName, courseInfos], index) => (
-                // TODO CHANGE THIS LINE BECAUSE THE BA IS NOT ALWAYS THE SAME
-                courseInfos.ba === Number(ba.at(2)) && (
+            Object.entries(sharedCourses)
+                .filter(([courseName, courseInfos]) => courseInfos.ba === Number(ba.at(2)))
+                .sort(([, a], [, b]) => b.credits - a.credits)
+                .map(([courseName, courseInfos], index) => (
                     <IndividualCourse key={`${courseName}-${index}`} courseName={courseName} courseInfos={courseInfos}
-                                      onClick={removeCourseFromColumn(courseName)}/>
-                )
-
-            ))
+                                      onClick={removeCourseFromColumn(courseName, setSharedCourses)}/>
+                ))
           }
         </div>
         {/* Make sure that this DropArea is visible if the complementarySharedCourse length > 0 for the specific column*/}
@@ -104,3 +73,6 @@ const CourseColumn = ({
 };
 
 export default CourseColumn;
+
+
+

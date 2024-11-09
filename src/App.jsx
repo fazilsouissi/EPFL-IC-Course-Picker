@@ -7,37 +7,46 @@ import Header from "./components/Header";
 import Course from "./components/Course";
 import coursesJson from "./json/courses.json";
 
-const oldCourses = localStorage.getItem("courses");
+// Get shared courses from local storage
+const localSavedCourses = JSON.parse(localStorage.getItem("sharedCourses"));
+// Get sort by from local storage
+const localSortBy = JSON.parse(localStorage.getItem("sortBy"));
 
 const App = () => {
 
-
-  const [courses, setCourses] = useState(JSON.parse(oldCourses) || []);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [sortBy, setSortBy] = useState([localSortBy] || ["Sort by Credits"]);
+  const [isDragging, setIsDragging] = useState(false);
 
 
-  const [sharedCourses, setSharedCourses] = useState([])
-  const [complementarySharedCourses, setComplementarySharedCourses] = useState(coursesJson);
+  const [sharedCourses, setSharedCourses] = useState(localSavedCourses || []);
+  const [complementarySharedCourses, setComplementarySharedCourses] = useState([]);
 
 
   // // Update complementary courses when shared courses change
   useEffect(() => {
-    // Calculate complementary courses
-    // const sharedCourseNames = new Set(Object.keys(coursesJson));
-    // const complementaryCourses = Object.keys(coursesJson)
-    //     .filter(courseName => !sharedCourseNames.has(courseName))
-    //     .reduce((acc, courseName) => {
-    //       acc[courseName] = coursesJson[courseName];
-    //       return acc;
-    //     }, {});
+
+    // Save the sharedCourses in the local storage
+    localStorage.setItem("sharedCourses", JSON.stringify(sharedCourses));
 
     const sharedCourseNames = new Set(Object.keys(sharedCourses));
-    const complementaryCourses = Object.keys(coursesJson)
+    let complementaryCourses = Object.keys(coursesJson)
         .filter(courseName => !sharedCourseNames.has(courseName))
         .reduce((acc, courseName) => {
           acc[courseName] = coursesJson[courseName];
           return acc;
         }, {});
+
+
+    // Sort complementary courses by credits
+    Object.entries(complementaryCourses).sort((a, b) => {
+      return b[1].credits - a[1].credits;
+    }).forEach(([key, value]) => {
+      // remove the course from the complementary courses
+      delete complementaryCourses[key];
+      complementaryCourses[key] = value;
+    })
+
 
     console.log("Reupdated complementary courses", complementaryCourses);
     setComplementarySharedCourses(complementaryCourses);
@@ -46,33 +55,50 @@ const App = () => {
 
   const [searchValue, setSearchValue] = useState("");
 
-
-  // todo vérifier les Fall Courses (BA3, BA5) et Spring Courses (BA4, BA6) qui
-  //  sont présents dans les respective ba_courses et les ajouter dans les courses forms (si présent dans un,
-  //    pas présent dans l'autre)
-
-  useEffect(() => {
-    localStorage.setItem("courses", JSON.stringify(courses));
-  }, [courses]);
-
-
   return (
-      <>
+      <div style={{minHeight: "1300px"}}>
         <Header sumOfCredits={Object.values(sharedCourses).reduce((acc, curr) => {
           return acc + Number(curr.credits);
-        }, 0)}/>
+        }, 0)}
+                sortBy={sortBy} setSortBy={setSortBy}
+        />
         <div className="app">
           <div className={"course-menu"}>
-            <CourseForm setCourses={setCourses} setSearchValue={setSearchValue} setSelectedTags={setSelectedTags}
+            <CourseForm setSearchValue={setSearchValue} setSelectedTags={setSelectedTags}
                         selectedTags={selectedTags}/>
-            <Course season="Fall" searchValue={searchValue}
-                    complementarySharedCourses={complementarySharedCourses}
-                    setComplementarySharedCourses={setComplementarySharedCourses}
-                    sharedCourses={sharedCourses}
-                    setSharedCourses={setSharedCourses} selectedTags={selectedTags}/>
-            <Course season="Spring" searchValue={searchValue} complementarySharedCourses={complementarySharedCourses}
-                    setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
-                    setSharedCourses={setSharedCourses} selectedTags={selectedTags}/>
+            {String(sortBy) === "Sort by Credits" && (
+                <>
+                  <Course season="Fall" searchValue={searchValue}
+                          complementarySharedCourses={complementarySharedCourses}
+                          setComplementarySharedCourses={setComplementarySharedCourses}
+                          sharedCourses={sharedCourses}
+                          setSharedCourses={setSharedCourses} selectedTags={selectedTags}
+                          sortBy={sortBy}
+                  />
+                  <Course season="Spring" searchValue={searchValue}
+                          complementarySharedCourses={complementarySharedCourses}
+                          setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
+                          setSharedCourses={setSharedCourses} selectedTags={selectedTags}
+                          sortBy={sortBy}
+                  />
+                </>
+            )}
+            {String(sortBy) === "Sort by Blocks" && (
+                <>
+                  <Course season="Fall" searchValue={searchValue}
+                          complementarySharedCourses={complementarySharedCourses}
+                          setComplementarySharedCourses={setComplementarySharedCourses}
+                          sharedCourses={sharedCourses}
+                          setSharedCourses={setSharedCourses} selectedTags={selectedTags}
+                          sortBy={sortBy}
+                  />
+                  <Course season="Spring" searchValue={searchValue}
+                          complementarySharedCourses={complementarySharedCourses}
+                          setComplementarySharedCourses={setComplementarySharedCourses} sharedCourses={sharedCourses}
+                          setSharedCourses={setSharedCourses} selectedTags={selectedTags}
+                          sortBy={sortBy}
+                  />
+                </>            )}
           </div>
           <main className="app_main">
             <CourseColumn
@@ -109,7 +135,20 @@ const App = () => {
             />
           </main>
         </div>
-      </>
+        <div style={
+          {maxWidth: "30%", margin: "auto", marginTop: "20px"}
+
+
+        }>
+          <Course season="All" searchValue={searchValue}
+                  complementarySharedCourses={complementarySharedCourses}
+                  setComplementarySharedCourses={setComplementarySharedCourses}
+                  sharedCourses={sharedCourses}
+                  setSharedCourses={setSharedCourses} selectedTags={selectedTags}
+                  sortBy={sortBy}
+          />
+        </div>
+      </div>
   );
 };
 

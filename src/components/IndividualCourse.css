@@ -1,0 +1,99 @@
+.tag-8-credits {
+  background-color: var(--color-8-credits-hover);
+}
+.tag-8-credits:hover {
+  background-color: var(--color-8-credits-selected);
+}
+
+.tag-6-credits {
+  background-color: var(--color-6-credits-hover);
+}
+.tag-6-credits:hover {
+  background-color: var(--color-6-credits-selected);
+}
+
+.tag-5-credits {
+  background-color: var(--color-5-credits-hover);
+}
+.tag-5-credits:hover {
+  background-color: var(--color-5-credits-selected);
+}
+
+.tag-4-credits {
+  background-color: var(--color-4-credits-hover);
+}
+.tag-4-credits:hover {
+  background-color: var(--color-4-credits-selected);
+}
+
+.tag-3-credits {
+  background-color: var(--color-3-credits-hover);
+}
+.tag-3-credits:hover {
+  background-color: var(--color-3-credits-selected);
+}
+
+.tag-2-credits {
+  background-color: var(--color-shs-2-credits-hover);
+}
+.tag-2-credits:hover {
+  background-color: var(--color-shs-2-credits-selected);
+}
+
+.tag-default {
+  background-color: var(--color-default-hover);
+}
+.tag-default:hover {
+  background-color: var(--color-default-selected);
+}
+
+.border-8 {
+  border-color: var(--color-8-credits-selected);
+}
+.border-8:hover {
+  border-color: var(--color-8-credits-hover);
+}
+
+.border-6 {
+  border-color: var(--color-6-credits-selected);
+}
+.border-6:hover {
+  border-color: var(--color-6-credits-hover);
+}
+
+.border-5 {
+  border-color: var(--color-5-credits-selected);
+}
+.border-5:hover {
+  border-color: var(--color-5-credits-hover);
+}
+
+.border-4 {
+  border-color: var(--color-4-credits-selected);
+}
+.border-4:hover {
+  border-color: var(--color-4-credits-hover);
+}
+
+.border-3 {
+  border-color: var(--color-3-credits-selected);
+}
+.border-3:hover {
+  border-color: var(--color-3-credits-hover);
+}
+
+.border-2 {
+  border-color: var(--color-shs-2-credits-selected);
+}
+.border-2:hover {
+  border-color: var(--color-shs-2-credits-hover);
+}
+
+.border-default {
+  border-color: var(--color-default-selected);
+}
+.border-default:hover {
+  border-color: var(--color-default-hover);
+}
+
+/*# sourceMappingURL=IndividualCourse.css.map */

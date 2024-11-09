@@ -1,34 +1,35 @@
 // Define colors for each credit type
 $credit-colors: (
         8: (
-                hover: #FF9999,
-                selected: #FFC1C1
+                hover: var(--color-8-credits-selected),
+                selected: var(--color-8-credits-hover)
         ),
         6: (
-                hover: #FFCC99,
-                selected: #FFE5B4
+                hover: var(--color-6-credits-selected),
+                selected: var(--color-6-credits-hover)
         ),
         5: (
-                hover: #FFEB99,
-                selected: #FFFACD
+                hover: var(--color-5-credits-selected),
+                selected: var(--color-5-credits-hover)
         ),
         4: (
-                hover: #A3D1A3,
-                selected: #C1E1C1
+                hover: var(--color-4-credits-selected),
+                selected: var(--color-4-credits-hover)
         ),
         3: (
-                hover: #85AFCB,
-                selected: #A7C7E7
+                hover: var(--color-3-credits-selected),
+                selected: var(--color-3-credits-hover)
         ),
         2: (
-                hover: #C39BD3,
-                selected: #D7BDE2
+                hover: var(--color-shs-2-credits-selected),
+                selected: var(--color-shs-2-credits-hover)
         ),
         default: (
-                hover: #f9f9f9,
-                selected: #f0f0f0
+                hover: var(--color-default-selected),
+                selected: var(--color-default-hover)
         )
 );
+;
 
 // SCSS function to get the color based on credits and state
 @function color-for-credits($credits, $state) {

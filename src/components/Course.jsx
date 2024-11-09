@@ -5,50 +5,7 @@ import "./CustomFont.scss"
 
 
 import IndividualCourse from "./IndividualCourse";
-
-
-// Handle adding a course and removing it from the DOM
-export const addCourseToColumn = (courseInfos, courseName, ba, setSharedCourses) => (e) => {
-  ba = ba !== undefined ? ba : courseInfos.ba;
-  e.preventDefault();
-  setSharedCourses((prevCourses) => {
-    //   if (!Object.keys(prevCourses).some((name) => name === courseName)) {
-    //     // Add the course
-    //     const newCourses = {...prevCourses};
-    //     const {credits, season} = courseInfos; // Decompose courseInfos
-    //     newCourses[courseName] = {ba, credits, season}; // adds courseName value to the sharedCourses with selected courseInfos
-    //     console.log(`Course ${courseName} clicked and removed added to its respective BA${ba} courses`);
-    //     return newCourses;
-    //   } else {
-    //     // Remove the course
-    //     const newCourses = {...prevCourses};
-    //     delete newCourses[courseName];
-    //     const newCourses2 = {...newCourses};
-    //     const {credits, season} = courseInfos;
-    //     newCourses2[courseName] = {ba, credits, season};
-    //     console.log(`Course ${courseName} clicked and removed added to its respective BA${ba} courses`);
-    //     return newCourses2;
-    //   } // And then the complementarySharedCourses should be updated (remove the course)
-
-    // Initialize newCourses with a copy of prevCourses
-    let newCourses = {...prevCourses};
-
-    // Check if the course exists in prevCourses
-    if (Object.keys(newCourses).some((name) => name === courseName)) {
-      // Remove the course if it exists
-      delete newCourses[courseName];
-      console.log(`Course ${courseName} clicked and removed from its respective BA${ba} courses`);
-    }
-
-    // Otherwise, add the course to newCourses
-    const {credits, season} = courseInfos;
-    newCourses[courseName] = {ba, credits, season};
-
-    // Return the updated courses object
-    return newCourses;
-  });
-
-};
+import courseJson from "../json/courses.json";
 
 
 /**
@@ -67,32 +24,54 @@ const Course = ({
                   setComplementarySharedCourses,
                   setSharedCourses,
                   sharedCourses,
-                  selectedTags
+                  selectedTags,
+                  sortBy
                 }) => {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
+  const blockOrder = {
+    "Bloc A": 1,
+    "Bloc B": 2,
+    "Bloc C": 3,
+    "Bloc transversal SHS": 4,
+    'Groupe "Cours à option"': 5,
+    'Groupe "Physique/Bio"': 6,
+    'Groupe I "projet"': 7
+  };
+
+  // let sortedCourses = filteredCourses;
+
   // Filter courses by season and search value when either changes
   useEffect(() => {
-    // todo add the tag filter here to filter the courses EVEN IF IT'S empty (to show all courses)
-
+    // Filter courses by season
     const seasonFilteredCourses = Object.entries(complementarySharedCourses).filter(
-        ([, courseInfos]) => courseInfos.season === season
+        ([, courseInfos]) => season === "All" || courseInfos.season === season
     );
 
-    let selectedTagsAsCredits = selectedTags.map(tag => {
-      if (tag) {
-        return tag.replace(/\D/g, '');
-      }
-    })
+    // Map tags to credits if tags are present
+    const selectedTagsAsCredits = selectedTags.map(tag => tag.replace(/\D/g, ''));
 
-    // Further filter by searchValue (case-insensitive)
+    // Further filter by searchValue (case-insensitive) and selected tags
     const searchRegex = new RegExp(searchValue, "i");
-    setFilteredCourses(
-        seasonFilteredCourses.filter(([courseName]) => searchRegex.test(courseName)
-            && (selectedTagsAsCredits.length === 0 || selectedTagsAsCredits.some(tag => complementarySharedCourses[courseName].credits === tag))
-        )
+    const filtered = seasonFilteredCourses.filter(([courseName, courseInfos]) =>
+        searchRegex.test(courseName) &&
+        (selectedTagsAsCredits.length === 0 || selectedTagsAsCredits.includes(courseInfos.credits))
     );
-  }, [searchValue, season, complementarySharedCourses, selectedTags]);
+
+    // Sort based on `sortBy` value
+    const sorted = filtered.sort((a, b) => {
+      if (String(sortBy) === "Sort by Credits") {
+        return Number(b[1].credits) - Number(a[1].credits);
+      } else if (String(sortBy) === "Sort by Blocks") {
+        return blockOrder[a[1].block] - blockOrder[b[1].block];
+      }
+      return 0; // Default case if no sorting
+    });
+
+    setFilteredCourses(sorted); // Update the state with sorted courses
+
+  }, [season, searchValue, complementarySharedCourses, selectedTags, sortBy]);
+  ;
 
   /**
    * Adjusts the font size of the course names to fit inside the container.
@@ -174,22 +153,107 @@ const Course = ({
 //     };
 //   }, [filteredCourses]);
 
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const courseName = event.dataTransfer.getData("courseName");
+    const courseInfos = courseJson[courseName];
+
+    removeCourseFromColumn(courseName, setSharedCourses)(event)
+  };
 
   return (
-      <div className="course">
-        <h3 className="season-title">
-          {season.toLowerCase() === "fall" ? "Fall" : "Spring"} Courses
-        </h3>
-        <div className="left-right-course-div">
-          {/* Render all filtered courses */}
-          {filteredCourses.map(([courseName, courseInfos], index) => (
-              <IndividualCourse key={`${courseName}-${index}`} courseName={courseName}
-                                onClick={addCourseToColumn(courseInfos, courseName, undefined, setSharedCourses)}
-                                courseInfos={courseInfos}/>
-          ))}
-        </div>
+      <div className="course"
+           onDrop={
+             handleDrop
+           }
+           onDragOver={(event) => {
+             event.preventDefault();
+           }}
+      >
+        {String(sortBy) === "Sort by Credits" &&
+            <>
+              <h3 className="season-title">
+                {season.toLowerCase() === "fall" ? "Fall" : "Spring"} Courses
+              </h3>
+              <div className="left-right-course-div">
+                {/* Render all filtered courses */}
+                {filteredCourses.map(([courseName, courseInfos], index) => (
+                    <IndividualCourse key={`${courseName}-${index}`} courseName={courseName}
+                                      onClick={addCourseToColumn(courseInfos, courseName,
+                                          undefined, setSharedCourses)}
+                                      courseInfos={courseInfos}/>
+                ))}
+              </div>
+
+            </>
+
+        }
+        {/*{String(sortBy) === "Sort by Blocks" && (*/}
+        {/*    <>*/}
+        {/*      <h3 className="season-title">*/}
+        {/*        {season.toLowerCase() === "fall" ? "Fall" : "Spring"} Courses*/}
+        {/*      </h3>*/}
+        {/*      <div className="left-right-course-div">*/}
+        {/*        /!* Group courses by block *!/*/}
+        {/*        {Object.entries(*/}
+        {/*            filteredCourses.reduce((acc, [courseName, courseInfos]) => {*/}
+        {/*              const blockName = courseInfos.block;*/}
+        {/*              if (!acc[blockName]) acc[blockName] = [];*/}
+        {/*              acc[blockName].push([courseName, courseInfos]);*/}
+        {/*              return acc;*/}
+        {/*            }, {})*/}
+        {/*        ).map(([blockName, courses]) => (*/}
+        {/*            <div key={blockName} className="block-group">*/}
+        {/*              /!* Block title *!/*/}
+        {/*              <h5 className="block-title">{blockName}</h5>*/}
+
+        {/*              /!* Render all courses for this block *!/*/}
+        {/*              {courses.map(([courseName, courseInfos], index) => (*/}
+        {/*                  <IndividualCourse*/}
+        {/*                      key={`${courseName}-${index}`}*/}
+        {/*                      courseName={courseName}*/}
+        {/*                      onClick={addCourseToColumn(courseInfos, courseName, undefined, setSharedCourses)}*/}
+        {/*                      courseInfos={courseInfos}*/}
+        {/*                  />*/}
+        {/*              ))}*/}
+        {/*            </div>*/}
+        {/*        ))}*/}
+        {/*      </div>*/}
+        {/*    </>*/}
+        {/*)*/}
+        {/*}*/}
+        {String(sortBy) === "Sort by Blocks" && (
+            <>
+              <h3 className="season-title">
+                {season.toLowerCase() === "fall" ? "Fall" : "Spring"} Courses
+              </h3>
+              <div className="left-right-course-div">
+                {Object.entries(
+                    filteredCourses.reduce((acc, [courseName, courseInfos]) => {
+                      const blockName = courseInfos.block;
+                      if (!acc[blockName]) acc[blockName] = [];
+                      acc[blockName].push([courseName, courseInfos]);
+                      return acc;
+                    }, {})
+                ).flatMap(([blockName, courses]) => [
+                  <h5 key={`${blockName}-title`} className="block-title">{blockName}</h5>,
+                  ...courses.map(([courseName, courseInfos], index) => (
+                      <IndividualCourse
+                          key={`${courseName}-${index}`}
+                          courseName={courseName}
+                          onClick={addCourseToColumn(courseInfos, courseName, undefined, setSharedCourses)}
+                          courseInfos={courseInfos}
+                      />
+                  ))
+                ])}
+              </div>
+            </>
+        )}
+
+
       </div>
-  );
+  )
+      ;
 };
 
 Course.propTypes = {
@@ -198,3 +262,47 @@ Course.propTypes = {
 };
 
 export default Course;
+
+
+// Handle adding a course and removing it from the DOM
+export const addCourseToColumn = (courseInfos, courseName, ba, setSharedCourses) => (e) => {
+  ba = ba !== undefined ? ba : courseInfos.ba;
+  e.preventDefault();
+  setSharedCourses((prevCourses) => {
+    // Initialize newCourses with a copy of prevCourses
+    let newCourses = {...prevCourses};
+
+    // Check if the course exists in prevCourses
+    if (Object.keys(newCourses).some((name) => name === courseName)) {
+      // Remove the course if it exists
+      delete newCourses[courseName];
+      console.log(`Course ${courseName} clicked and removed from its respective BA${ba} courses`);
+    }
+
+    // Otherwise, add the course to newCourses
+    const {credits, season} = courseInfos;
+    newCourses[courseName] = {ba, credits, season};
+
+    // Return the updated courses object
+    return newCourses;
+  });
+
+};
+
+export const removeCourseFromColumn = (courseName, setSharedCourses) => {
+  return (e) => {
+    e.preventDefault();
+    setSharedCourses((prevCourses) => {
+      if (Object.keys(prevCourses).some((name) => name === courseName)) {
+        // remove the course
+        const newCourses = {...prevCourses};
+        delete newCourses[courseName];
+        console.log(`Course ${courseName} ${e.type === "click" ? "clicked" : "dropped"} 
+        and removed from its respective BA courses`);
+        return newCourses;
+      }
+      return prevCourses; // Return the same state if the course is already present
+    });
+  };
+}
+

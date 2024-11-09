@@ -3,7 +3,7 @@ import {useState} from "react";
 
 import "./CreditsTag.css";
 
-const CreditsTag = ({tagName, selectTag, selected}) => {
+const SortTag = ({tagName, selectTag, selected}) => {
   const [isHovered, setIsHovered] = useState(false);
   // const tagStyle = {
   //     "8 Credits": { backgroundColor: "#fda821" },
@@ -23,32 +23,40 @@ const CreditsTag = ({tagName, selectTag, selected}) => {
   // };
   const tagStyle = {
     "8 Credits": {
-      selected: { backgroundColor: "#FF9999" },  // Darker Pink
-      hover: { backgroundColor: "#FFC1C1" }      // Pastel Pink
+      selected: {backgroundColor: "var(--color-8-credits-selected)"},
+      hover: {backgroundColor: "var(--color-8-credits-hover)"}
     },
     "6 Credits": {
-      selected: { backgroundColor: "#FFCC99" },  // Darker Apricot
-      hover: { backgroundColor: "#FFE5B4" }      // Pastel Apricot
+      selected: {backgroundColor: "var(--color-6-credits-selected)"},
+      hover: {backgroundColor: "var(--color-6-credits-hover)"}
     },
     "5 Credits": {
-      selected: { backgroundColor: "#FFEB99" },  // Darker Yellow
-      hover: { backgroundColor: "#FFFACD" }      // Pastel Yellow
+      selected: {backgroundColor: "var(--color-5-credits-selected)"},
+      hover: {backgroundColor: "var(--color-5-credits-hover)"}
     },
     "4 Credits": {
-      selected: { backgroundColor: "#A3D1A3" },  // Darker Green
-      hover: { backgroundColor: "#C1E1C1" }      // Pastel Green
+      selected: {backgroundColor: "var(--color-4-credits-selected)"},
+      hover: {backgroundColor: "var(--color-4-credits-hover)"}
     },
     "SHS - 2 Credits": {
-      selected: { backgroundColor: "#C39BD3" },  // Darker Purple
-      hover: { backgroundColor: "#D7BDE2" }      // Pastel Purple
+      selected: {backgroundColor: "var(--color-shs-2-credits-selected)"},
+      hover: {backgroundColor: "var(--color-shs-2-credits-hover)"}
     },
     "3 Credits": {
-      selected: { backgroundColor: "#85AFCB" },  // Darker Blue
-      hover: { backgroundColor: "#A7C7E7" }      // Pastel Blue
+      selected: {backgroundColor: "var(--color-3-credits-selected)"},
+      hover: {backgroundColor: "var(--color-3-credits-hover)"}
+    },
+    "Sort by Credits": {
+      selected: {backgroundColor: "var(--color-sort-by-credits-selected)"},
+      hover: {backgroundColor: "var(--color-sort-by-credits-hover)"}
+    },
+    "Sort by Blocks": {
+      selected: {backgroundColor: "var(--color-sort-by-blocks-selected)"},
+      hover: {backgroundColor: "var(--color-sort-by-blocks-hover)"}
     },
     default: {
-      selected: { backgroundColor: "#f9f9f9" },  // Default grayish background
-      hover: { backgroundColor: "#f0f0f0" }      // Lighter gray hover
+      selected: {backgroundColor: "var(--color-default-selected)"},
+      hover: {backgroundColor: "var(--color-default-hover)"}
     }
   };
 
@@ -57,11 +65,14 @@ const CreditsTag = ({tagName, selectTag, selected}) => {
       <button
           type='button'
           className='tag'
-          style={
-            isHovered
-                ? (selected ? tagStyle[tagName].selected : tagStyle[tagName].hover)
-                : (selected ? tagStyle[tagName].selected : tagStyle.default.selected)
-          }
+          style={{
+            color: selected && tagName.includes("Sort") ? "white" : "inherit",  
+            ...(
+                isHovered
+                    ? (selected ? tagStyle[tagName].selected : tagStyle[tagName].hover)
+                    : (selected ? tagStyle[tagName].selected : tagStyle.default.selected)
+            )
+          }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => selectTag(tagName)}
@@ -70,10 +81,10 @@ const CreditsTag = ({tagName, selectTag, selected}) => {
       </button>
   );
 };
-CreditsTag.propTypes = {
+SortTag.propTypes = {
   tagName: PropTypes.string.isRequired,
   selectTag: PropTypes.func.isRequired,
   selected: PropTypes.bool.isRequired,
 };
 
-export default CreditsTag;
+export default SortTag;

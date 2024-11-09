@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./CourseForm.css";
 import CreditsTag from "./CreditsTag.jsx";
 
-const CourseForm = ({setCourses, setSearchValue, selectedTags, setSelectedTags}) => {
+const CourseForm = ({setSearchValue, selectedTags, setSelectedTags}) => {
   const [courseData, setCourseData] = useState({
     course: "", status: "BA3", tags: [],
   });
@@ -43,9 +43,7 @@ const CourseForm = ({setCourses, setSearchValue, selectedTags, setSelectedTags})
   // const checkTag = (tag) => {
   //   return courseData.tags.some((item) => item === tag);
   // };
-  const checkTag = (tag) => {
-    return selectedTags.some((item) => item === tag);
-  };
+
 
   // const selectTag = (tag) => {
   //   setSelectedTags((prev) => {
@@ -62,6 +60,11 @@ const CourseForm = ({setCourses, setSearchValue, selectedTags, setSelectedTags})
   //   //   });
   //   // }
   // };
+
+  const checkTag = (tag) => {
+    return selectedTags.some((item) => item === tag);
+  };
+
   const selectTag = (tag) => {
     setSelectedTags((prev) => {
       if (prev.includes(tag)) {
@@ -83,25 +86,9 @@ const CourseForm = ({setCourses, setSearchValue, selectedTags, setSelectedTags})
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(courseData);
-    setCourses((prev) => {
-      return [...prev, courseData];
-    });
-    setCourseData({
-      course: "", ba: "BA3", // Default ba to submit a course
-      tags: [],
-    });
-  };
-
-  // const handleCourseSelect = (course) => {
-  //   setCourseData((prev) => ({ ...prev, course: course }));
-  //   setFilteredCourses([]); // Clear the search results after selecting a course
-  // };
-
   return (<header className="app_header">
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={() => {
+    }}>
       <div className="search-bar-container">
         <input
             type="text"
@@ -178,7 +165,7 @@ const CourseForm = ({setCourses, setSearchValue, selectedTags, setSelectedTags})
 };
 
 CourseForm.propTypes = {
-  setCourses: PropTypes.func.isRequired, setSearchValue: PropTypes.func.isRequired,
+  setSearchValue: PropTypes.func.isRequired,
   selectedTags: PropTypes.array.isRequired, setSelectedTags: PropTypes.func.isRequired,
 };
 

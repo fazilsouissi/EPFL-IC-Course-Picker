@@ -2,14 +2,37 @@
     font-size: 2.5rem;
     font-weight: 700;
     color: #333;
-    margin-bottom: 1rem;
+
     text-align: center;
-    margin-top: 2rem;
     transform-origin: center; /* Ensure the scaling is centered */
 }
 
+.header-container > * {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.sortby-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    text-align: center;
+}
+.sum-of-credits {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
 .h1_title:hover {
-    transform: scale(1.02);
     transition: all 0.3s;
 }
 

@@ -4,7 +4,6 @@ import "./CustomFont.scss"
 import "./IndividualCourse.scss";
 
 const IndividualCourse = ({courseName, courseInfos, onClick}) => {
-  {/*Todo add the id as the key*/}
   return <div
       className={`individual-course-label tag-${courseInfos.credits}-credits`}
       id={`course-${courseName.replace(/\s+/g, "-")}`}

@@ -2,20 +2,22 @@
     display: grid;
     /* grid-template-rows: 150px auto; */
     grid-template-columns: 30% 70%;
+    /*grid-template-columns: 1fr 2.5fr;*/
     grid-template-rows: 100%;
 }
 
+
 @media (max-width: 400px) {
-    .app {
-        grid-template-columns: 100%;
-        grid-template-rows: auto auto;
-    }
-    .app_main {
-        order: 1;
-    }
-    .course-menu {
-        order: 2;
-    }
+    /*.app {*/
+    /*    grid-template-columns: 100%;*/
+    /*    grid-template-rows: auto auto;*/
+    /*}*/
+    /*.app_main {*/
+    /*    order: 1;*/
+    /*}*/
+    /*.course-menu {*/
+    /*    order: 2;*/
+    /*}*/
 }
 
 .app_main {
@@ -24,8 +26,10 @@
 }
 
 .course_column {
-    width: 20%;
-    margin: 20px;
+    width: 100%;
+    margin-block: 20px;
+    margin-inline: 15px;
+    padding: 5px;
     transition: all 1s;
     border-radius: 10px;
     border: 2px solid #fbd518;

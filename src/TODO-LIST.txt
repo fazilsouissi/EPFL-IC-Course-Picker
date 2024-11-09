@@ -1,0 +1,9 @@
+- Add the dark mode feature with a toggle button
+- Add sorting feature for the courses by blocks and by credits
+(change color scheme for the blocks) (example: the mandatory courses are in red/black,
+the optional courses are in yellow), use the top right corner to sort the courses (with a select box or tags)
+- Add a box to fit the courses credits in the top column
+- Add a box to fit the sum of the credits in the top right corner
+- Add a dim effect (use a useState and set it on the ondrag of the element and notify the columns for its drag event)
+on the courses column that are not available for the drop (example: the courses that are not available for the current semester)
+- Add tracks for the courses (example: the courses that are available for the current semester)
