@@ -1,7 +1,6 @@
-# File: .github/workflows/deploy.yml
+# .github/workflows/deploy.yml
 name: Deploy React/Vite App to GitHub Pages
 
-# 1) Run this workflow on any push to main, and also allow manual dispatch
 on:
   push:
     branches:
@@ -12,27 +11,26 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      # → Step 1: Check out your repository
       - name: Check out code
         uses: actions/checkout@v3
 
-      # → Step 2: Use Node 18 (so ESLint and Vite dependencies that require ≥18 won’t warn)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      # → Step 3: Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # → Step 4: Build the Vite app (this outputs into dist/)
       - name: Build production bundle
         run: npm run build
 
-      # → Step 5: Deploy to GitHub Pages via your "deploy" script
+      - name: Configure git user
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
       - name: Deploy to GitHub Pages
         run: npm run deploy
         env:
-          # gh-pages CLI reads this token to push to gh-pages branch
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
