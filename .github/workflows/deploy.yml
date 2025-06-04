@@ -1,9 +1,7 @@
 # File: .github/workflows/deploy.yml
+name: Deploy React/Vite App to GitHub Pages
 
-name: Publish site to GitHub Pages
-
-# 1) Run this workflow on any push to 'main'
-# 2) Also allow manual dispatch from the Actions tab (optional)
+# 1) Run this workflow on any push to main, and also allow manual dispatch
 on:
   push:
     branches:
@@ -12,34 +10,29 @@ on:
 
 jobs:
   build_and_deploy:
-    name: Build on main, then push to gh-pages
     runs-on: ubuntu-latest
-
     steps:
-      # Step A: check out your main branch
+      # → Step 1: Check out your repository
       - name: Check out code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0   # so we have the full history if we need to push back to gh-pages
 
-      # Step B (optional): set up Node.js (only if your site is built with npm)
+      # → Step 2: Use Node 18 (so ESLint and Vite dependencies that require ≥18 won’t warn)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'   # or whatever version you require
+          node-version: "18"
 
-      # Step C (optional): install dependencies and build
+      # → Step 3: Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      - name: Build site
+      # → Step 4: Build the Vite app (this outputs into dist/)
+      - name: Build production bundle
         run: npm run build
-        # └─ this should produce static files into ./build (or ./dist or etc.)
-      
-      # Step D: push those built files into gh-pages
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages       # ← the branch you use for Pages
-          publish_dir: ./build            # ← adjust if your build outputs to a different folder
+
+      # → Step 5: Deploy to GitHub Pages via your "deploy" script
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
+        env:
+          # gh-pages CLI reads this token to push to gh-pages branch
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
