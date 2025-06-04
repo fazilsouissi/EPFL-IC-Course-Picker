@@ -46,6 +46,12 @@
   gap: 4px;
 }
 
+@media (max-width: 768px) {
+  .left-right-course-div {
+    grid-template-columns: 1fr;
+  }
+}
+
 .season-title, .block-title {
   padding: 5px 0;
 }

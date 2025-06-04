@@ -1,5 +1,5 @@
 .h1_title {
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     font-weight: 700;
     color: #333;
 
@@ -20,10 +20,25 @@
     gap: 2rem;
 }
 
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 .sortby-container {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+    .sortby-container {
+        grid-template-rows: none;
+        grid-template-columns: repeat(3, auto);
+        gap: 0.5rem;
+    }
 }
 .sum-of-credits {
     font-size: 1rem;
