@@ -19,6 +19,13 @@
     flex-flow: row nowrap;
 }
 
+@media (max-width: 768px) {
+    .search-bar-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
 .app_header > form {
     width: 100%;
     position: relative; /* Ensure the form maintains its position relative to the header */
